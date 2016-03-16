@@ -1,0 +1,12 @@
+{
+	dbConfig: {
+		url: "jdbc:mysql://localhost:3306/parliament?zeroDateTimeBehavior=convertToNull",
+		user: "root",
+		pass: "user123",
+		poolSize: 10
+	},
+	
+	query : {
+		limit : 10
+	}
+}

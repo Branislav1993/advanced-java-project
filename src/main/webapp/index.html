@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Parlament CRUD app</title>
+</head>
+<body ng-controller="DemoCtrl as demo">
+
+<div>
+    <input type="number" name="id" ng-model="demo.newMember.id" placeholder="id">
+    <input type="text" name="name" ng-model="demo.newMember.name" placeholder="name">
+    <input type="text" name="lastName" ng-model="demo.newMember.lastName" placeholder="lastname">
+    <button ng-click="demo.createMember()">Create Member</button>
+</div>
+
+<script type="text/javascript" src="js/bundle/bundle.js"></script>
+</body>
+</html>

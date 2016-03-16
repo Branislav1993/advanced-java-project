@@ -1,0 +1,9 @@
+/target/
+/logs/
+/bin/
+/.settings/
+/.project
+/.classpath
+AppTest.java
+src/main/webapp/js/node_modules
+src/main/webapp/.idea/

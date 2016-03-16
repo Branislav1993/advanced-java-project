@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- Mapping details -->
+		<mapping package="rs.otvoreniparlament.api.domain" />
+		<mapping class="rs.fon.parlament.domain.Member" />
+		<mapping class="rs.fon.parlament.domain.Party" />
+		<mapping class="rs.fon.parlament.domain.Town" />
+		<mapping class="rs.fon.parlament.domain.Speech" />
+		<mapping class="rs.fon.parlament.domain.PlenarySession" />
+	</session-factory>
+</hibernate-configuration>
