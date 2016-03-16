@@ -16,9 +16,6 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import rs.fon.parlament.domain.Town;
 import rs.fon.parlament.rest.exceptions.AppException;
 import rs.fon.parlament.rest.parsers.json.ParlamentJsonParser;
@@ -32,14 +29,10 @@ public class TownRestService {
 
 	private final Logger logger;
 	private TownsService townsService;
-	private ParlamentJsonParser jsonParser;
-	private Gson gson;
 	
 	public TownRestService() {
 		logger = LogManager.getLogger(TownRestService.class);
 		townsService = new TownsServiceImpl();
-		jsonParser = new ParlamentJsonParser();
-		gson = new GsonBuilder().serializeNulls().create();
 	}
 
 	@GET
@@ -58,7 +51,7 @@ public class TownRestService {
 			}
 		}
 
-		String json = gson.toJson(t);
+		String json = ParlamentJsonParser.gson.toJson(t);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -95,7 +88,7 @@ public class TownRestService {
 			}
 		}
 
-		String json = gson.toJson(newTown);
+		String json = ParlamentJsonParser.gson.toJson(newTown);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -114,7 +107,7 @@ public class TownRestService {
 			}
 		}
 
-		String json = gson.toJson(newTown);
+		String json = ParlamentJsonParser.gson.toJson(newTown);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -133,7 +126,7 @@ public class TownRestService {
 			}
 		}
 		
-		String json = jsonParser.serialize(towns).toString();
+		String json = ParlamentJsonParser.serialize(towns).toString();
 		
 		return Response.status(Status.OK).entity(json).build();
 		

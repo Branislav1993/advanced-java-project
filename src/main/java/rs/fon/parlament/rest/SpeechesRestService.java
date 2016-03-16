@@ -17,9 +17,6 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import rs.fon.parlament.config.Settings;
 import rs.fon.parlament.domain.Speech;
 import rs.fon.parlament.rest.exceptions.AppException;
@@ -36,14 +33,10 @@ public class SpeechesRestService {
 
 	private final Logger logger;
 	private SpeechesService speechesService;
-	private ParlamentJsonParser jsonParser;
-	private Gson gson;
 	
 	public SpeechesRestService() {
 		logger = LogManager.getLogger(SpeechesRestService.class);
 		speechesService = new SpeechesServiceImpl();
-		jsonParser = new ParlamentJsonParser();
-		gson = new GsonBuilder().serializeNulls().create();
 	}
 
 	@GET
@@ -62,7 +55,7 @@ public class SpeechesRestService {
 			}
 		}
 
-		String json = gson.toJson(s);
+		String json = ParlamentJsonParser.gson.toJson(s);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -99,7 +92,7 @@ public class SpeechesRestService {
 			}
 		}
 
-		String json = gson.toJson(newSpeech);
+		String json = ParlamentJsonParser.gson.toJson(newSpeech);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -118,7 +111,7 @@ public class SpeechesRestService {
 			}
 		}
 
-		String json = gson.toJson(newSpeech);
+		String json = ParlamentJsonParser.gson.toJson(newSpeech);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -147,7 +140,7 @@ public class SpeechesRestService {
 				logger.error(e);
 			}
 
-		String json = jsonParser.serialize(speeches, validLimit, validPage, count).toString();
+		String json = ParlamentJsonParser.serialize(speeches, validLimit, validPage, count).toString();
 
 		return Response.status(Response.Status.OK).entity(json).build();
 	}

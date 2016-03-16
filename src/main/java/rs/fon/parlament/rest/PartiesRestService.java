@@ -17,9 +17,6 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import rs.fon.parlament.config.Settings;
 import rs.fon.parlament.domain.Party;
 import rs.fon.parlament.rest.exceptions.AppException;
@@ -36,14 +33,10 @@ public class PartiesRestService {
 
 	private final Logger logger;
 	private PartiesService partiesService;
-	private ParlamentJsonParser jsonParser;
-	private Gson gson;
 	
 	public PartiesRestService() {
 		logger = LogManager.getLogger(PartiesRestService.class);
 		partiesService = new PartiesServiceImpl();
-		jsonParser = new ParlamentJsonParser();
-		gson = new GsonBuilder().serializeNulls().create();
 	}
 
 	@GET
@@ -62,7 +55,7 @@ public class PartiesRestService {
 			}
 		}
 
-		String json = gson.toJson(p);
+		String json = ParlamentJsonParser.gson.toJson(p);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -99,7 +92,7 @@ public class PartiesRestService {
 			}
 		}
 
-		String json = gson.toJson(newParty);
+		String json = ParlamentJsonParser.gson.toJson(newParty);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -118,7 +111,7 @@ public class PartiesRestService {
 			}
 		}
 
-		String json = gson.toJson(newParty);
+		String json = ParlamentJsonParser.gson.toJson(newParty);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -149,7 +142,7 @@ public class PartiesRestService {
 				logger.error(e);
 			}
 
-		String json = jsonParser.serialize(parties, validLimit, validPage, count).toString();
+		String json = ParlamentJsonParser.serialize(parties, validLimit, validPage, count).toString();
 
 		return Response.status(Response.Status.OK).entity(json).build();
 	}

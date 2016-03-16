@@ -10,9 +10,9 @@ import com.google.gson.reflect.TypeToken;
 
 public class ParlamentJsonParser {
 	
-	private Gson gson = new GsonBuilder().serializeNulls().create();
+	public static Gson gson = new GsonBuilder().serializeNulls().create();
 	
-	public <T> JsonObject serialize(List<T> list, int limit, int page, long count){
+	public static <T> JsonObject serialize(List<T> list, int limit, int page, long count){
 		JsonObject json = new JsonObject();
 		
 		JsonElement element = gson.toJsonTree(list, new TypeToken<List<T>>() {}.getType());
@@ -25,7 +25,7 @@ public class ParlamentJsonParser {
 		return json;
 	}
 	
-	public <T> JsonObject serialize(List<T> list){
+	public static <T> JsonObject serialize(List<T> list){
 		JsonObject json = new JsonObject();
 		
 		JsonElement element = gson.toJsonTree(list, new TypeToken<List<T>>() {}.getType());

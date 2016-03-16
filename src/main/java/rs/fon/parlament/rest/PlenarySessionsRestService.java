@@ -17,9 +17,6 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import rs.fon.parlament.config.Settings;
 import rs.fon.parlament.domain.PlenarySession;
 import rs.fon.parlament.rest.exceptions.AppException;
@@ -36,14 +33,10 @@ public class PlenarySessionsRestService {
 
 	private final Logger logger;
 	private PlenarySessionsService plenarySessionService;
-	private ParlamentJsonParser jsonParser;
-	private Gson gson;
 	
 	public PlenarySessionsRestService() {
 		logger = LogManager.getLogger(PlenarySessionsRestService.class);
 		plenarySessionService = new PlenarySessionsServiceImpl();
-		jsonParser = new ParlamentJsonParser();
-		gson = new GsonBuilder().serializeNulls().create();
 	}
 
 	@GET
@@ -62,7 +55,7 @@ public class PlenarySessionsRestService {
 			}
 		}
 
-		String json = gson.toJson(ps);
+		String json = ParlamentJsonParser.gson.toJson(ps);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -99,7 +92,7 @@ public class PlenarySessionsRestService {
 			}
 		}
 
-		String json = gson.toJson(newPlenarySession);
+		String json = ParlamentJsonParser.gson.toJson(newPlenarySession);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -118,7 +111,7 @@ public class PlenarySessionsRestService {
 			}
 		}
 
-		String json = gson.toJson(newPlenarySession);
+		String json = ParlamentJsonParser.gson.toJson(newPlenarySession);
 
 		return Response.status(Status.OK).entity(json).build();
 	}
@@ -147,7 +140,7 @@ public class PlenarySessionsRestService {
 				logger.error(e);
 			}
 
-		String json = jsonParser.serialize(plenarySessions, validLimit, validPage, count).toString();
+		String json = ParlamentJsonParser.serialize(plenarySessions, validLimit, validPage, count).toString();
 
 		return Response.status(Response.Status.OK).entity(json).build();
 	}
