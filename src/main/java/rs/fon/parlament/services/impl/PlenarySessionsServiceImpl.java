@@ -1,13 +1,21 @@
 package rs.fon.parlament.services.impl;
 
 import rs.fon.parlament.dao.PlenarySessionDao;
+import rs.fon.parlament.dao.SpeechDao;
 import rs.fon.parlament.domain.PlenarySession;
+import rs.fon.parlament.domain.Speech;
 import rs.fon.parlament.services.PlenarySessionsService;
 import rs.fon.parlament.services.util.ServiceResponse;
 
 public class PlenarySessionsServiceImpl implements PlenarySessionsService {
 
-	private PlenarySessionDao psd = new PlenarySessionDao();
+	private PlenarySessionDao psd;
+	private SpeechDao sd;
+
+	public PlenarySessionsServiceImpl() {
+		 psd = new PlenarySessionDao();
+		 sd = new SpeechDao();
+	}
 
 	@Override
 	public PlenarySession getPlenarySession(int id) {
@@ -34,6 +42,15 @@ public class PlenarySessionsServiceImpl implements PlenarySessionsService {
 		ServiceResponse<PlenarySession> response = new ServiceResponse<>();
 		response.setRecords(psd.getPlenarySessions(limit, page));
 		response.setTotalHits(psd.getTotalCount());
+		
+		return response;
+	}
+	
+	@Override
+	public ServiceResponse<Speech> getPlenarySessionSpeeches(int id, int limit, int page){
+		ServiceResponse<Speech> response = new ServiceResponse<>();
+		response.setRecords(sd.getPlenarySessionSpeeches(id, limit, page));
+		response.setTotalHits(sd.getSessionSpeechesTotalCount(id));
 		
 		return response;
 	}

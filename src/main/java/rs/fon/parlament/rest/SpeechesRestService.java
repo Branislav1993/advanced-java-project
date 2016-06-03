@@ -52,6 +52,7 @@ public class SpeechesRestService {
 						ResourceBundleUtil.getMessage("speeches.not_found.noSpeechId", String.valueOf(id)));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -72,6 +73,7 @@ public class SpeechesRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("speeches.delete_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -89,6 +91,7 @@ public class SpeechesRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("speeches.insert_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -108,6 +111,7 @@ public class SpeechesRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("speeches.update_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -138,6 +142,7 @@ public class SpeechesRestService {
 				throw new AppException(Status.NOT_FOUND, ResourceBundleUtil.getMessage("speeches.not_found.noMembers"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 
 		String json = ParlamentJsonParser.serialize(speeches, validLimit, validPage, count).toString();

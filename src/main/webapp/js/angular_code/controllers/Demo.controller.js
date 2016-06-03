@@ -2,8 +2,8 @@ module.exports = function (app) {
 
     app.controller("DemoCtrl", DemoCtrl);
 
-    DemoCtrl.$inject = ['Members'];
-    function DemoCtrl (Members) {
+    DemoCtrl.$inject = ['Members', 'Speeches', 'Sessions', 'Towns', 'Parties'];
+    function DemoCtrl(Members, Speeches, Sessions, Towns, Parties) {
 
         var ctrl = this;
         ctrl.createMember = createMember;
@@ -16,9 +16,5 @@ module.exports = function (app) {
                 console.log(JSON.stringify(response));
             });
         }
-
-
-
     }
-
 };

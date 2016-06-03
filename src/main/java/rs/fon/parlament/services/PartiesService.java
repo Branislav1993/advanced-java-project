@@ -1,5 +1,6 @@
 package rs.fon.parlament.services;
 
+import rs.fon.parlament.domain.Member;
 import rs.fon.parlament.domain.Party;
 import rs.fon.parlament.services.util.ServiceResponse;
 
@@ -14,5 +15,7 @@ public interface PartiesService {
 	public Party insertParty(Party p);
 
 	public ServiceResponse<Party> getParties(int limit, int page, String sort, String query);
+	
+	public ServiceResponse<Member> getPartyMembers(int id, int limit, int page);
 
 }

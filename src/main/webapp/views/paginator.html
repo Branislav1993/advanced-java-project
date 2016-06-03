@@ -1,0 +1,13 @@
+<div class="col-xs-2 pages">
+    <span>Pages: {{ collection.pagination.page }} / {{collection.pagination.last_page == 0 ? 1 : collection.pagination.last_page}}</span>
+</div>
+<div class="btn-group col-xs-6 col-md-6">
+    <button type="button" class="btn btn-default" ng-if="collection.pagination.page > 1"
+            ng-click="changePage()(collection.pagination.page - 1)">
+        <i class="fa fa-arrow-left fa-fw"></i>
+    </button>
+    <button type="button" class="btn btn-default" ng-if="collection.pagination.page < collection.pagination.last_page"
+            ng-click="changePage()(collection.pagination.page + 1)">
+        <i class="fa fa-arrow-right fa-fw"></i>
+    </button>
+</div>

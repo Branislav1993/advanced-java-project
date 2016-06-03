@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 import rs.fon.parlament.config.Settings;
 import rs.fon.parlament.domain.Member;
+import rs.fon.parlament.domain.Speech;
 import rs.fon.parlament.rest.exceptions.AppException;
 import rs.fon.parlament.rest.parsers.json.ParlamentJsonParser;
 import rs.fon.parlament.rest.util.ParameterChecker;
@@ -52,6 +53,7 @@ public class MembersRestService {
 						ResourceBundleUtil.getMessage("members.not_found.noMemberId", String.valueOf(id)));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -64,14 +66,15 @@ public class MembersRestService {
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 	public Response deleteMember(@PathParam("id") int id) {
-
+		
 		boolean deleted = membersService.deleteMember(id);
 
-		if (deleted) {
+		if (!deleted) {
 			try {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("members.delete_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -89,6 +92,7 @@ public class MembersRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("members.insert_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -109,6 +113,7 @@ public class MembersRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("members.update_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -141,9 +146,48 @@ public class MembersRestService {
 				throw new AppException(Status.NOT_FOUND, ResourceBundleUtil.getMessage("members.not_found.noMembers"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 
 		String json = ParlamentJsonParser.serialize(members, validLimit, validPage, count).toString();
+
+		return Response.status(Response.Status.OK).entity(json).build();
+	}
+	
+	@GET
+	@Path("/{id}/speeches")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+	public Response getMemberSpeeches(	@PathParam("id") int id,
+										@PathParam("limit") int limit,
+										@PathParam("page") int page,
+										@PathParam("query") String query,
+										@PathParam("from") String from,
+										@PathParam("to") String to) {
+		
+		// validation
+		int validLimit = ParameterChecker.check(limit, Settings.getInstance().config.query.limit);
+		int validPage = ParameterChecker.check(page, 1);
+		String validQuery = query != null ? query : "";
+		String validFromDate = ParameterChecker.check(from, "");
+		String validToDate = ParameterChecker.check(to, "");
+				
+		// retrieving the data
+		ServiceResponse<Speech> response = membersService.getMemberSpeeches(id, validLimit, validPage, validQuery, validFromDate, validToDate);
+
+		List<Speech> speeches = response.getRecords();
+		Long count = response.getTotalHits();
+		
+		if (speeches.isEmpty()) {
+			try {
+				throw new AppException(Status.NOT_FOUND,
+						ResourceBundleUtil.getMessage("members.no_content.noSpeeches", String.valueOf(id)));
+			} catch (KeyNotFoundInBundleException e) {
+				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
+			}
+		}
+
+		String json = ParlamentJsonParser.serialize(speeches, validLimit, validPage, count).toString();
 
 		return Response.status(Response.Status.OK).entity(json).build();
 	}

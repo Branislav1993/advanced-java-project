@@ -34,21 +34,21 @@ public class ParameterChecker {
 		return valid ? value : defaultVal;
 	}
 
-//	public static String check(String value, String defaultVal) {
-//
-//		if (value == null) {
-//			return defaultVal;
-//		}
-//
-//		if (!DateRegex.ValidateDate(value)) {
-//			try {
-//				throw new AppException(Status.BAD_REQUEST,
-//						ResourceBundleUtil.getMessage("date.invalid_date_format", value));
-//			} catch (KeyNotFoundInBundleException e) {
-//				logger.error(e);
-//			}
-//		}
-//
-//		return value;
-//	}
+	public static String check(String value, String defaultVal) {
+
+		if (value == null) {
+			return defaultVal;
+		}
+
+		if (!DateRegex.ValidateDate(value)) {
+			try {
+				throw new AppException(Status.BAD_REQUEST,
+						ResourceBundleUtil.getMessage("date.invalid_date_format", value));
+			} catch (KeyNotFoundInBundleException e) {
+				logger.error(e);
+			}
+		}
+
+		return value;
+	}
 }

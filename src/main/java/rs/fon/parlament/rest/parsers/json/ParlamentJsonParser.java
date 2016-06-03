@@ -17,9 +17,12 @@ public class ParlamentJsonParser {
 		
 		JsonElement element = gson.toJsonTree(list, new TypeToken<List<T>>() {}.getType());
 		
+		Integer last_page = (int)Math.ceil((count*1.0)/limit);
+		
 		json.addProperty("limit", limit);
 		json.addProperty("page", page);
 		json.addProperty("count", count);
+		json.addProperty("last_page", last_page);
 		json.add("data", element.getAsJsonArray());
 		
 		return json;

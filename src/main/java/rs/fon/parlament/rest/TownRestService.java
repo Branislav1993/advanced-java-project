@@ -48,6 +48,7 @@ public class TownRestService {
 						ResourceBundleUtil.getMessage("towns.not_found.noTownId", String.valueOf(id)));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -68,6 +69,7 @@ public class TownRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("towns.delete_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -85,6 +87,7 @@ public class TownRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("towns.insert_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -104,6 +107,7 @@ public class TownRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("towns.update_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -123,6 +127,7 @@ public class TownRestService {
 				throw new AppException(Status.NOT_FOUND, ResourceBundleUtil.getMessage("towns.not_found.noTowns"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 		

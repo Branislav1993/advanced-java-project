@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -21,7 +22,7 @@ public class Party {
 	@Column(name = "ime")
 	private String name;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "clanpolitickeorganizacije", joinColumns = @JoinColumn(name = "idpolitickeorganizacije") , inverseJoinColumns = @JoinColumn(name = "idposlanika") )
 	private transient List<Member> members;
 

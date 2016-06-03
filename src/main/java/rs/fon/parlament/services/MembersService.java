@@ -1,6 +1,7 @@
 package rs.fon.parlament.services;
 
 import rs.fon.parlament.domain.Member;
+import rs.fon.parlament.domain.Speech;
 import rs.fon.parlament.services.util.ServiceResponse;
 
 public interface MembersService {
@@ -14,6 +15,7 @@ public interface MembersService {
 	public Member insertMember(Member m);
 	
 	public ServiceResponse<Member> getMembers(int limit, int page, String sort, String query);
-	
+
+	ServiceResponse<Speech> getMemberSpeeches(int id, int limit, int page, String qtext, String from, String to);
 
 }

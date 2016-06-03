@@ -18,6 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import rs.fon.parlament.config.Settings;
+import rs.fon.parlament.domain.Member;
 import rs.fon.parlament.domain.Party;
 import rs.fon.parlament.rest.exceptions.AppException;
 import rs.fon.parlament.rest.parsers.json.ParlamentJsonParser;
@@ -52,6 +53,7 @@ public class PartiesRestService {
 						ResourceBundleUtil.getMessage("parties.not_found.noPartyId", String.valueOf(id)));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -72,6 +74,7 @@ public class PartiesRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("parties.delete_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -89,6 +92,7 @@ public class PartiesRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("parties.insert_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -108,6 +112,7 @@ public class PartiesRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("parties.update_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -140,11 +145,41 @@ public class PartiesRestService {
 				throw new AppException(Status.NOT_FOUND, ResourceBundleUtil.getMessage("parties.not_found.noMembers"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 
 		String json = ParlamentJsonParser.serialize(parties, validLimit, validPage, count).toString();
 
 		return Response.status(Response.Status.OK).entity(json).build();
+	}
+	
+	@GET
+	@Path("/{id}/members")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+	public Response getPartyMembers(@PathParam("id") int id, @QueryParam("limit") int limit,
+			@QueryParam("page") int page) {
+
+		// validation
+		int validLimit = ParameterChecker.check(limit, Settings.getInstance().config.query.limit);
+		int validPage = ParameterChecker.check(page, 1);
+
+		// retrieving the data
+		ServiceResponse<Member> response = partiesService.getPartyMembers(id, validLimit, validPage);
+		List<Member> members = response.getRecords();
+		long count = response.getTotalHits();
+
+		if (members == null || members.isEmpty())
+			try {
+				throw new AppException(Status.NO_CONTENT,
+						ResourceBundleUtil.getMessage("parties.no_content.noMembers", String.valueOf(id)));
+			} catch (KeyNotFoundInBundleException e) {
+				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
+			}
+
+		String json = ParlamentJsonParser.serialize(members, validLimit, validPage, count).toString();
+
+		return Response.status(Status.OK).entity(json).build();
 	}
 
 }

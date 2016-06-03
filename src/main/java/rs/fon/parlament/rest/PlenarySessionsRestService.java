@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 import rs.fon.parlament.config.Settings;
 import rs.fon.parlament.domain.PlenarySession;
+import rs.fon.parlament.domain.Speech;
 import rs.fon.parlament.rest.exceptions.AppException;
 import rs.fon.parlament.rest.parsers.json.ParlamentJsonParser;
 import rs.fon.parlament.rest.util.ParameterChecker;
@@ -52,6 +53,7 @@ public class PlenarySessionsRestService {
 						ResourceBundleUtil.getMessage("sessions.not_found.noSessionId", String.valueOf(id)));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -72,6 +74,7 @@ public class PlenarySessionsRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("sessions.delete_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -89,6 +92,7 @@ public class PlenarySessionsRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("sessions.insert_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -108,6 +112,7 @@ public class PlenarySessionsRestService {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("sessions.update_error"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 		}
 
@@ -138,9 +143,42 @@ public class PlenarySessionsRestService {
 				throw new AppException(Status.NOT_FOUND, ResourceBundleUtil.getMessage("sessions.not_found.noMembers"));
 			} catch (KeyNotFoundInBundleException e) {
 				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
 			}
 
 		String json = ParlamentJsonParser.serialize(plenarySessions, validLimit, validPage, count).toString();
+
+		return Response.status(Response.Status.OK).entity(json).build();
+	}
+	
+	@GET
+	@Path("/{id}/speeches")
+	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
+	public Response getMemberSpeeches(	@PathParam("id") int id,
+										@PathParam("limit") int limit,
+										@PathParam("page") int page) {
+		
+		// validation
+		int validLimit = ParameterChecker.check(limit, Settings.getInstance().config.query.limit);
+		int validPage = ParameterChecker.check(page, 1);
+				
+		// retrieving the data
+		ServiceResponse<Speech> response = plenarySessionService.getPlenarySessionSpeeches(id, validLimit, validPage);
+
+		List<Speech> speeches = response.getRecords();
+		Long count = response.getTotalHits();
+		
+		if (speeches.isEmpty()) {
+			try {
+				throw new AppException(Status.NOT_FOUND,
+						ResourceBundleUtil.getMessage("sessions.no_content.noSpeeches", String.valueOf(id)));
+			} catch (KeyNotFoundInBundleException e) {
+				logger.error(e);
+				throw new AppException(Status.NOT_FOUND, e.getMessage());
+			}
+		}
+
+		String json = ParlamentJsonParser.serialize(speeches, validLimit, validPage, count).toString();
 
 		return Response.status(Response.Status.OK).entity(json).build();
 	}

@@ -30,6 +30,7 @@ public class MembersDao {
 			session.save(m);
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 			return null;
@@ -129,23 +130,26 @@ public class MembersDao {
 		return countResults;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Member> getPartyMembers(int id, int limit, int page) {
 		Session session = HibernateUtil.getInstance().getSessionFactory().openSession();
 		session.beginTransaction();
 		
-		String query = 
-				"SELECT p.members " + 
-				"FROM Party p " + 
-				"WHERE p.id = :id";
+		Query sql = session.createSQLQuery("select idposlanika from clanpolitickeorganizacije where idpolitickeorganizacije=:id");
 		
-		@SuppressWarnings("unchecked")
+		List<Integer> ids = sql.setInteger("id", id).list();
+		
+		if(ids.isEmpty()) return null;
+		
+		String query = "from Member m where m.id IN :ids";
+		
 		List<Member> result = session.createQuery(query)
+				.setParameterList("ids", ids)
 				.setFirstResult((page - 1) * limit)
 				.setMaxResults(limit)
-				.setLong("id", id)
 				.list();
 		
-		session.close();
+		session.close(); 
 		
 		return result;
 	}

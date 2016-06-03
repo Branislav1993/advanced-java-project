@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <h1>MEMBERS STRANA</h1>
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" ng-model="mctrl.searchTerm">
+            </div>
+            <button ng-click="mctrl.search()" class="btn btn-primary">SEARCH</button>
+        </form>
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Birth date</th>
+                <th>Gender</th>
+                <th>Place of Birth</th>
+                <th>Place of Residence</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tr ng-repeat="m in mctrl.members">
+                <td>{{m.id}}</td>
+                <td>{{m.lastName}} {{m.name}}</td>
+                <td>{{m.dateOfBirth}}</td>
+                <td>{{m.gender}}</td>
+                <td>{{m.placeOfBirth.name}}</td>
+                <td>{{m.placeOfResidence.name}}</td>
+                <td>
+                    <a><i class="fa fa-trash-o" ng-click="mctrl.remove(m.id)"></i></a>
+                    <a><i class="fa fa-wrench" ng-click="mctrl.updateMember(m)"></i></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <paginator collection="mctrl.members" change-page="mctrl.changePage"></paginator>
+    <button class="btn btn-primary pull-right" ng-click="mctrl.createMember()">CREATE NEW MEMBER</button>
+</div>

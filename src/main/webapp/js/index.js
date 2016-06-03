@@ -1,11 +1,17 @@
 var angular = require('./node_modules/angular/index.js');
 var restangular = require('./node_modules/restangular/src/restangular.js');
 require('./node_modules/restangular/node_modules/lodash/index.js');
+require('./node_modules/angular-animate/index.js');
+require('./node_modules/angular-sanitize/index.js');
+require('./node_modules/angular-scroll/index.js');
+require('./node_modules/angular-route/index.js');
+require('./node_modules/angular-loading-bar/index.js');
+require('./node_modules/angular-local-storage/index.js');
 
 var app = angular
-    .module('app', ['restangular'])
+    .module('app', ['restangular', 'ngRoute', 'ngAnimate', 'angular-loading-bar', 'LocalStorageModule'])
     .constant('appConfig', {
-        baseUrl:  "http://localhost:8080/parlament"
+        baseUrl: "http://localhost:8080/parlament/api/"
     })
     .config(['$httpProvider', 'appConfig', function ($httpProvider, appConfig) {
 
@@ -48,9 +54,46 @@ var app = angular
         });
     }]);
 
+app.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+        .when('/members', {
+            templateUrl: 'views/members.html',
+            controller: 'MembersCtrl',
+            controllerAs: 'mctrl'
+        })
+        .when('/create-member', {
+            templateUrl: 'views/create-member.html',
+            controller: 'CreateMemberCtrl',
+            controllerAs: 'mctrl'
+        })
+        .when('/parties', {
+            templateUrl: 'views/parties.html',
+            controller: 'PartiesCtrl',
+            controllerAs: 'pctrl'
+        })
+        .when('/sessions', {
+            templateUrl: 'views/sessions.html',
+            controller: 'SessionsCtrl',
+            controllerAs: 'sctrl'
+        })
+        .when('/speeches', {
+            templateUrl: 'views/speeches.html',
+            controller: 'SpeechesCtrl',
+            controllerAs: 'spctrl'
+        })
+}]);
+
 
 //controllers
 require(__dirname + '/angular_code/controllers/Demo.controller.js')(app);
+require(__dirname + '/angular_code/controllers/parties.controller.js')(app);
+require(__dirname + '/angular_code/controllers/createMember.controller.js')(app);
+require(__dirname + '/angular_code/controllers/members.controller.js')(app);
+require(__dirname + '/angular_code/controllers/speeches.controller.js')(app);
+require(__dirname + '/angular_code/controllers/sessions.controller.js')(app);
 
 //factories
 require(__dirname + '/angular_code/factories/factory.js')(app);
+
+//directives
+require(__dirname + '/angular_code/directives/paginator.directive.js')(app);
