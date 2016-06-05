@@ -69,7 +69,7 @@ public class PlenarySessionsRestService {
 
 		boolean deleted = plenarySessionService.deletePlenarySession(id);
 
-		if (deleted) {
+		if (!deleted) {
 			try {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("sessions.delete_error"));
 			} catch (KeyNotFoundInBundleException e) {

@@ -2,8 +2,8 @@ module.exports = function (app) {
 
     app.controller("MembersCtrl", MembersCtrl);
 
-    MembersCtrl.$inject = ['Members', 'localStorageService'];
-    function MembersCtrl(Members, localStorageService) {
+    MembersCtrl.$inject = ['Members', 'localStorageService', 'dialogs'];
+    function MembersCtrl(Members, localStorageService, dialogs) {
 
         var ctrl = this;
         ctrl.list = list;
@@ -12,9 +12,9 @@ module.exports = function (app) {
         ctrl.search = search;
         ctrl.updateMember = updateMember;
         ctrl.createMember = createMember;
+        ctrl.showBiography = showBiography;
 
         ctrl.members = [];
-        list();
         ctrl.currentPage = null;
         ctrl.searchTerm = null;
 
@@ -33,8 +33,13 @@ module.exports = function (app) {
 
         // DELETE
         function remove(memberId) {
-            Members.one(memberId).remove().then(function () {
-                list();
+            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected member?", {size: "md"});
+            dlg.result.then(function () {
+                Members.one(memberId).remove().then(function () {
+                    list();
+                }, function (response) {
+                    dialogs.notify("Error!", response.message, null);
+                });
             });
         }
 
@@ -51,7 +56,11 @@ module.exports = function (app) {
 
         function updateMember(member) {
             localStorageService.set("editedMember", member);
-            window.location = "#/create-member"
+            window.location = "#/create-member";
+        }
+
+        function showBiography(m) {
+            dialogs.notify(m.name + ' ' + m.lastName + ' biography', m.biography, null);
         }
 
     }

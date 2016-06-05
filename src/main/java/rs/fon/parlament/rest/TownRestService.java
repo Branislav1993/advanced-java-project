@@ -64,7 +64,7 @@ public class TownRestService {
 
 		boolean deleted = townsService.deleteTown(id);
 
-		if (deleted) {
+		if (!deleted) {
 			try {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("towns.delete_error"));
 			} catch (KeyNotFoundInBundleException e) {

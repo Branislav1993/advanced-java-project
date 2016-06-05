@@ -29,6 +29,7 @@ public class PlenarySessionDao {
 			session.save(ps);
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 			return null;
@@ -53,6 +54,7 @@ public class PlenarySessionDao {
 
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 
@@ -68,6 +70,7 @@ public class PlenarySessionDao {
 			session.update(ps);
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 			return null;

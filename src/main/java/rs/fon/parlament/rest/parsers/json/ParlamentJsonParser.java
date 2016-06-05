@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class ParlamentJsonParser {
 	
-	public static Gson gson = new GsonBuilder().serializeNulls().create();
+	public static Gson gson = new GsonBuilder().setDateFormat("dd.MM.yyyy").serializeNulls().create();
 	
 	public static <T> JsonObject serialize(List<T> list, int limit, int page, long count){
 		JsonObject json = new JsonObject();

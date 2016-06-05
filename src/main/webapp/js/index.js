@@ -1,5 +1,10 @@
-var angular = require('./node_modules/angular/index.js');
-var restangular = require('./node_modules/restangular/src/restangular.js');
+require('./node_modules/jquery/dist/jquery.js');
+require('./node_modules/bootstrap/dist/js/bootstrap.js');
+require('./lib/jquery.easing.min.js');
+require('./lib/jquery.fittext.js');
+require('./lib/creative.js');
+require('./node_modules/angular/index.js');
+require('./node_modules/restangular/src/restangular.js');
 require('./node_modules/restangular/node_modules/lodash/index.js');
 require('./node_modules/angular-animate/index.js');
 require('./node_modules/angular-sanitize/index.js');
@@ -7,9 +12,12 @@ require('./node_modules/angular-scroll/index.js');
 require('./node_modules/angular-route/index.js');
 require('./node_modules/angular-loading-bar/index.js');
 require('./node_modules/angular-local-storage/index.js');
+require('./node_modules/angular-dialog-service/index.js');
+require('./node_modules/angular-ui-bootstrap/index.js');
+
 
 var app = angular
-    .module('app', ['restangular', 'ngRoute', 'ngAnimate', 'angular-loading-bar', 'LocalStorageModule'])
+    .module('app', ['restangular', 'ngRoute', 'ngAnimate', 'angular-loading-bar', 'LocalStorageModule', 'dialogs.main', 'ui.bootstrap', 'duScroll'])
     .constant('appConfig', {
         baseUrl: "http://localhost:8080/parlament/api/"
     })
@@ -56,6 +64,11 @@ var app = angular
 
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
+        .when('/', {
+            templateUrl: 'views/home-page.html',
+            controller: 'HomePageCtrl',
+            controllerAs: 'hpctrl'
+        })
         .when('/members', {
             templateUrl: 'views/members.html',
             controller: 'MembersCtrl',
@@ -71,23 +84,42 @@ app.config(['$routeProvider', function ($routeProvider) {
             controller: 'PartiesCtrl',
             controllerAs: 'pctrl'
         })
+        .when('/create-party', {
+            templateUrl: 'views/create-party.html',
+            controller: 'CreatePartyCtrl',
+            controllerAs: 'pctrl'
+        })
         .when('/sessions', {
             templateUrl: 'views/sessions.html',
             controller: 'SessionsCtrl',
             controllerAs: 'sctrl'
         })
+        .when('/create-session', {
+            templateUrl: 'views/create-session.html',
+            controller: 'CreateSessionCtrl',
+            controllerAs: 'sctrl'
+        })
         .when('/speeches', {
             templateUrl: 'views/speeches.html',
             controller: 'SpeechesCtrl',
-            controllerAs: 'spctrl'
+            controllerAs: 'sctrl'
+        })
+        .when('/create-speech', {
+            templateUrl: 'views/create-speech.html',
+            controller: 'CreateSpeechCtrl',
+            controllerAs: 'csctrl'
         })
 }]);
 
 
 //controllers
 require(__dirname + '/angular_code/controllers/Demo.controller.js')(app);
+require(__dirname + '/angular_code/controllers/homePage.controller.js')(app);
 require(__dirname + '/angular_code/controllers/parties.controller.js')(app);
 require(__dirname + '/angular_code/controllers/createMember.controller.js')(app);
+require(__dirname + '/angular_code/controllers/createParty.controller.js')(app);
+require(__dirname + '/angular_code/controllers/createSession.controller.js')(app);
+require(__dirname + '/angular_code/controllers/createSpeech.controller.js')(app);
 require(__dirname + '/angular_code/controllers/members.controller.js')(app);
 require(__dirname + '/angular_code/controllers/speeches.controller.js')(app);
 require(__dirname + '/angular_code/controllers/sessions.controller.js')(app);

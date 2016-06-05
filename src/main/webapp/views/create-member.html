@@ -1,34 +1,79 @@
 <div class="container">
     <div class="row">
-        <h1>CREATE NEW MEMBER</h1>
-        <h2>{{mctrl.editedMember.name}}</h2>
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">CREATE NEW MEMBER</h2>
+            <hr class="primary">
+        </div>
     </div>
     <form role="form">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="name" class="form-control" id="name" ng-model="mctrl.editedMember.name">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="name" class="form-control" id="name" ng-model="mctrl.editedMember.name">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last name:</label>
+                <input type="text" class="form-control" id="lastName" ng-model="mctrl.editedMember.lastName">
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label for="gender">Gender:</label>
+                    <input type="number" min="0" max="1" class="form-control" id="gender"
+                           ng-model="mctrl.editedMember.gender">
+                </div>
+                <div class="form-group col-md-9">
+                    <label for="birthdate">Date of birth:</label>
+                    <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="mctrl.open()">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                </span>
+                        <input type="text"
+                               id="birthdate"
+                               class="form-control"
+                               uib-datepicker-popup="{{mctrl.format}}"
+                               ng-model="mctrl.editedMember.dateOfBirth"
+                               is-open="mctrl.popup.opened" datepicker-options="mctrl.dateOptions"
+                               ng-required="true" close-text="Close"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" class="form-control" id="email" ng-model="mctrl.editedMember.email">
+            </div>
+            <div class="form-group">
+                <label for="placeOfBirth">Place of Birth: {{mctrl.editedMember.placeOfBirth.name}}</label>
+                <select id="placeOfBirth"
+                        ng-model="mctrl.editedMember.placeOfBirth"
+                        ng-options="town as (town.name) for town in mctrl.towns"
+                        class="form-control dropdown-list" ng-required="true">
+                    <option></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="placeOfResidence">Place of residence: {{mctrl.editedMember.placeOfResidence.name}}</label>
+                <select id="placeOfResidence"
+                        ng-model="mctrl.editedMember.placeOfResidence"
+                        ng-options="town as (town.name) for town in mctrl.towns"
+                        class="form-control dropdown-list" ng-required="true">
+                    <option></option>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="lastName">Last name:</label>
-            <input type="text" class="form-control" id="lastName" ng-model="mctrl.editedMember.lastName">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <label for="biography">Biography:</label>
+                <textarea rows="17" class="form-control" id="biography"
+                          ng-model="mctrl.editedMember.biography"></textarea>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="gender">Gender:</label>
-            <input type="text" maxlength="1" class="form-control" id="gender" ng-model="mctrl.editedMember.gender">
-        </div>
-        <div class="form-group">
-            <label for="birthdate">Date of birth:</label>
-            <input type="text" class="form-control" id="birthdate" ng-model="mctrl.editedMember.dateOfBirth">
-        </div>
-        <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email" ng-model="mctrl.editedMember.email">
-        </div>
-        <div class="form-group">
-            <label for="biography">Password:</label>
-            <input type="text" class="form-control" id="biography" ng-model="mctrl.editedMember.biography">
-        </div>
-        <button type="submit" class="btn btn-primary" ng-if="mctrl.editMode" ng-click="mctrl.update()">Update</button>
-        <button type="submit" class="btn btn-primary" ng-if="!mctrl.editMode" ng-click="mctrl.create()">Create</button>
+        <button type="submit" class="btn btn-primary pull-right" ng-if="mctrl.editMode" ng-click="mctrl.update()">Update
+        </button>
+        <button type="submit" class="btn btn-primary pull-right" ng-if="!mctrl.editMode" ng-click="mctrl.create()">
+            Create
+        </button>
     </form>
 </div>
+<br>

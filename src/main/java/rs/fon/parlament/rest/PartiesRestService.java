@@ -69,7 +69,7 @@ public class PartiesRestService {
 
 		boolean deleted = partiesService.deleteParty(id);
 
-		if (deleted) {
+		if (!deleted) {
 			try {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("parties.delete_error"));
 			} catch (KeyNotFoundInBundleException e) {

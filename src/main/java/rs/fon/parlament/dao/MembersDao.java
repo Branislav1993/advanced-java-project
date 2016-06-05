@@ -55,6 +55,7 @@ public class MembersDao {
 
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 
@@ -70,6 +71,7 @@ public class MembersDao {
 			session.update(m);
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 			return null;

@@ -2,38 +2,59 @@ module.exports = function (app) {
 
     app.controller("PartiesCtrl", PartiesCtrl);
 
-    PartiesCtrl.$inject = ['Parties'];
-    function PartiesCtrl(Parties) {
+    PartiesCtrl.$inject = ['Parties', 'localStorageService', 'dialogs'];
+    function PartiesCtrl(Parties, localStorageService, dialogs) {
 
         var ctrl = this;
-        ctrl.create = create;
+        ctrl.list = list;
         ctrl.remove = remove;
-        //ctrl.update = update;
+        ctrl.changePage = changePage;
+        ctrl.search = search;
+        ctrl.updateParty = updateParty;
+        ctrl.createParty = createParty;
 
         ctrl.parties = [];
-        list();
-        ctrl.newParty = {};
+        ctrl.currentPage = null;
+        ctrl.searchTerm = null;
 
         //GET ALL
         function list() {
-            Parties.getList().then(function (parties) {
+            Parties.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (parties) {
                 ctrl.parties = parties;
             });
         }
 
-        //CREATE
-        function create() {
-            Parties.post(ctrl.newParty).then(function (response) {
-                ctrl.newParty = {};
-                console.log(JSON.stringify(response));
-            });
+        //SEARCH
+        function search() {
+            ctrl.currentPage = 1;
+            list();
         }
 
         // DELETE
         function remove(partyId) {
-            Parties.one(partyId).remove().then(function () {
-                ctrl.list();
+            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected party?", {size: "md"});
+            dlg.result.then(function () {
+                Parties.one(partyId).remove().then(function () {
+                    list();
+                });
             });
         }
+
+        //CHANGE PAGE
+        function changePage(page) {
+            ctrl.currentPage = page;
+            list();
+        }
+
+        function createParty() {
+            localStorageService.remove("editedParty");
+            window.location = '#/create-party';
+        }
+
+        function updateParty(party) {
+            localStorageService.set("editedParty", party);
+            window.location = "#/create-party";
+        }
+
     }
 };

@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">CREATE NEW SESSION</h2>
+            <hr class="primary">
+        </div>
+    </div>
+    <form role="form">
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group col-md-9">
+                    <label for="birthdate">Session date:</label>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="sctrl.open()">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                        <input type="text"
+                               id="birthdate"
+                               class="form-control"
+                               uib-datepicker-popup="{{sctrl.format}}"
+                               ng-model="sctrl.editedSession.date"
+                               is-open="sctrl.popup.opened" datepicker-options="sctrl.dateOptions"
+                               ng-required="true" close-text="Close"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="agenda">Agenda:</label>
+                    <textarea rows="17" class="form-control" id="agenda"
+                              ng-model="sctrl.editedSession.agenda"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-group">
+                    <label for="transcriptText">Transcript:</label>
+                    <textarea rows="17" class="form-control" id="transcriptText"
+                              ng-model="sctrl.editedSession.transcriptText"></textarea>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary pull-right" ng-if="sctrl.editMode" ng-click="sctrl.update()">
+            Update
+        </button>
+        <button type="submit" class="btn btn-primary pull-right" ng-if="!sctrl.editMode" ng-click="sctrl.create()">
+            Create
+        </button>
+    </form>
+</div>
+<br>

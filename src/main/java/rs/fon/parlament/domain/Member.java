@@ -35,7 +35,7 @@ public class Member {
 
 	// pol: 0 muski, 1 zenski
 	@Column(name = "pol")
-	private String gender;
+	private Integer gender;
 
 	@Column(name = "email")
 	private String email;
@@ -97,11 +97,11 @@ public class Member {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getGender() {
+	public Integer getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
 

@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">CREATE NEW PARTY</h2>
+            <hr class="primary">
+        </div>
+    </div>
+    <form role="form">
+        <div class="col-md-6 col-xs-12">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="name" class="form-control" id="name" ng-model="pctrl.editedParty.name">
+            </div>
+            <button type="submit" class="btn btn-primary pull-right" ng-if="pctrl.editMode" ng-click="pctrl.update()">
+                Update
+            </button>
+            <button type="submit" class="btn btn-primary pull-right" ng-if="!pctrl.editMode" ng-click="pctrl.create()">
+                Create
+            </button>
+        </div>
+    </form>
+</div>
+<br>

@@ -36,6 +36,7 @@ public class SpeechDao {
 			session.save(s);
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 			return null;
@@ -60,6 +61,7 @@ public class SpeechDao {
 
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 
@@ -75,6 +77,7 @@ public class SpeechDao {
 			session.update(s);
 			session.getTransaction().commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			session.getTransaction().rollback();
 			session.close();
 			return null;

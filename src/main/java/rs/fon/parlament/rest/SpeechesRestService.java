@@ -68,7 +68,7 @@ public class SpeechesRestService {
 
 		boolean deleted = speechesService.deleteSpeech(id);
 
-		if (deleted) {
+		if (!deleted) {
 			try {
 				throw new AppException(Status.BAD_REQUEST, ResourceBundleUtil.getMessage("speeches.delete_error"));
 			} catch (KeyNotFoundInBundleException e) {

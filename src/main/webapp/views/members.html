@@ -1,6 +1,9 @@
 <div class="container">
     <div class="row">
-        <h1>MEMBERS STRANA</h1>
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">MEMBERS</h2>
+            <hr class="primary">
+        </div>
         <form class="form-inline" role="form">
             <div class="form-group">
                 <input type="text" class="form-control" ng-model="mctrl.searchTerm">
@@ -16,6 +19,7 @@
                 <th>Gender</th>
                 <th>Place of Birth</th>
                 <th>Place of Residence</th>
+                <th>Biography</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -26,6 +30,7 @@
                 <td>{{m.gender}}</td>
                 <td>{{m.placeOfBirth.name}}</td>
                 <td>{{m.placeOfResidence.name}}</td>
+                <td><button class="btn btn-primary btn-sm" ng-click="mctrl.showBiography(m)">show</button></td>
                 <td>
                     <a><i class="fa fa-trash-o" ng-click="mctrl.remove(m.id)"></i></a>
                     <a><i class="fa fa-wrench" ng-click="mctrl.updateMember(m)"></i></a>
@@ -36,3 +41,4 @@
     <paginator collection="mctrl.members" change-page="mctrl.changePage"></paginator>
     <button class="btn btn-primary pull-right" ng-click="mctrl.createMember()">CREATE NEW MEMBER</button>
 </div>
+<br>

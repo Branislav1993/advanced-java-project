@@ -174,9 +174,10 @@ aside {
 header {
     position: relative;
     width: 100%;
+    background-image: url(../assets/img/ParlamentBelgrad.jpg);
     text-align: center;
     color: #fff;
-    background-image: url(../assets/img/ParlamentBelgrad.jpg);
+    height: 100vh;
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -322,6 +323,10 @@ header .header-content .header-content-inner p {
 
 .text-primary {
     color: #f05f40;
+}
+
+.text-primary:hover {
+    color: #882722;
 }
 
 .no-gutter > [class*=col-] {
