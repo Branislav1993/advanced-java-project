@@ -13,6 +13,7 @@ module.exports = function (app) {
         ctrl.updateMember = updateMember;
         ctrl.createMember = createMember;
         ctrl.showBiography = showBiography;
+        ctrl.seeSpeeches = seeSpeeches;
 
         ctrl.members = [];
         ctrl.currentPage = null;
@@ -22,6 +23,9 @@ module.exports = function (app) {
         function list() {
             Members.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (members) {
                 ctrl.members = members;
+            },
+            function (response) {
+                dialogs.notify("Error!", response.data.error, null);
             });
         }
 
@@ -38,7 +42,7 @@ module.exports = function (app) {
                 Members.one(memberId).remove().then(function () {
                     list();
                 }, function (response) {
-                    dialogs.notify("Error!", response.message, null);
+                    dialogs.notify("Error!", response.data.error, null);
                 });
             });
         }
@@ -61,6 +65,11 @@ module.exports = function (app) {
 
         function showBiography(m) {
             dialogs.notify(m.name + ' ' + m.lastName + ' biography', m.biography, null);
+        }
+
+        function seeSpeeches(m) {
+            localStorageService.set("member", m);
+            window.location = '#/member-speeches';
         }
 
     }

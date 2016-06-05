@@ -18,7 +18,9 @@
                     <th>Name</th>
                 </tr>
                 </thead>
-                <tr ng-repeat="m in csctrl.members">
+                <tr ng-repeat="m in csctrl.members"
+                    ng-click="csctrl.selectMember(m)"
+                    ng-class="{'selected':m.id == csctrl.selectedMember.id}">
                     <td>{{m.id}}</td>
                     <td>{{m.name}} {{m.lastName}}</td>
                 </tr>
@@ -48,7 +50,9 @@
                     <th>Date</th>
                 </tr>
                 </thead>
-                <tr ng-repeat="s in csctrl.sessions">
+                <tr ng-repeat="s in csctrl.sessions"
+                    ng-click="csctrl.selectSession(s)"
+                    ng-class="{'selected':s.id == csctrl.selectedSession.id}">
                     <td>{{s.id}}</td>
                     <td>{{s.date}}</td>
                 </tr>
@@ -56,18 +60,21 @@
             <paginator collection="csctrl.sessions" change-page="csctrl.changeSessionsPage"></paginator>
         </div>
     </div>
-    <div class="col-md-12">
-        <div class="form-group">
-            <label for="speechText">Text:</label>
+    <form role="form">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="speechText">Text:</label>
                 <textarea rows="17" class="form-control" id="speechText"
-                          ng-model="csctrl.editedSpeech.text"></textarea>
+                          ng-model="csctrl.editedSpeech.text"
+                          reqired></textarea>
+            </div>
         </div>
-    </div>
-    <button type="submit" class="btn btn-primary pull-right" ng-if="csctrl.editMode" ng-click="csctrl.update()">
-        Update
-    </button>
-    <button type="submit" class="btn btn-primary pull-right" ng-if="!csctrl.editMode" ng-click="csctrl.create()">
-        Create
-    </button>
+        <button type="submit" class="btn btn-primary pull-right" ng-if="csctrl.editMode" ng-click="csctrl.update()">
+            Update
+        </button>
+        <button type="submit" class="btn btn-primary pull-right" ng-if="!csctrl.editMode" ng-click="csctrl.create()">
+            Create
+        </button>
+    </form>
 </div>
 <br>

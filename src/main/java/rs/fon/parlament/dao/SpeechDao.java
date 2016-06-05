@@ -169,7 +169,7 @@ public class SpeechDao {
 		Session session = HibernateUtil.getInstance().getSessionFactory().openSession();
 		session.beginTransaction();
 
-		String query = "SELECT s " + "FROM Speech s " + "WHERE s.plenarySession.id = :plenarySessionId "
+		String query = "SELECT s " + "FROM Speech s " + "WHERE s.plenarySessionId = :plenarySessionId "
 				+ "ORDER BY s.id";
 
 		List<Speech> all = session.createQuery(query)
@@ -204,7 +204,7 @@ public class SpeechDao {
 		
 		String queryString = "SELECT count (s.id) " +
 							 "FROM Speech s " +
-							 "WHERE s.plenarySession.id = :plenarySessionId";
+							 "WHERE s.plenarySessionId = :plenarySessionId";
 		
 		Query query = session.createQuery(queryString).setParameter("plenarySessionId", id);
 		

@@ -158,12 +158,12 @@ public class MembersRestService {
 	@Path("/{id}/speeches")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 	public Response getMemberSpeeches(	@PathParam("id") int id,
-										@PathParam("limit") int limit,
-										@PathParam("page") int page,
-										@PathParam("query") String query,
-										@PathParam("from") String from,
-										@PathParam("to") String to) {
-		
+										@QueryParam("limit") int limit,
+										@QueryParam("page") int page,
+										@QueryParam("query") String query,
+										@QueryParam("from") String from,
+										@QueryParam("to") String to) {
+
 		// validation
 		int validLimit = ParameterChecker.check(limit, Settings.getInstance().config.query.limit);
 		int validPage = ParameterChecker.check(page, 1);

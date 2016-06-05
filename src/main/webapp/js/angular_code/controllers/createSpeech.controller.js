@@ -11,6 +11,8 @@ module.exports = function (app) {
         ctrl.searchMembers = searchMembers;
         ctrl.changeMembersPage = changeMembersPage;
         ctrl.changeSessionsPage = changeSessionsPage;
+        ctrl.selectMember = selectMember;
+        ctrl.selectSession = selectSession;
 
         ctrl.editedSpeech = {};
         ctrl.editMode = false;
@@ -21,6 +23,23 @@ module.exports = function (app) {
         ctrl.searchMemberTerm = null;
         ctrl.currentMembersPage = null;
         ctrl.currentSessionsPage = null;
+        ctrl.selectedMember = null;
+        ctrl.selectedSession = null;
+
+        // CHECK PAGE MODE - EDIT || CREATE
+        if (localStorageService.get("editedSpeech") != null) {
+            ctrl.editedSpeech = localStorageService.get("editedSpeech");
+            ctrl.selectedMember = ctrl.editedSpeech.member;
+            ctrl.selectedSession = {};
+            ctrl.selectedSession.id = ctrl.editedSpeech.plenarySessionId;
+            if (ctrl.editedSpeech.sessionDate) {
+                var day = ctrl.editedSpeech.sessionDate.substring(0, ctrl.editedSpeech.sessionDate.indexOf('.'));
+                var month = ctrl.editedSpeech.sessionDate.substring(ctrl.editedSpeech.sessionDate.indexOf('.') + 1, ctrl.editedSpeech.sessionDate.lastIndexOf('.'));
+                var year = ctrl.editedSpeech.sessionDate.substring(ctrl.editedSpeech.sessionDate.lastIndexOf('.') + 1, ctrl.editedSpeech.sessionDate.length);
+                ctrl.editedSpeech.sessionDate = new Date(year, month - 1, day);
+            }
+            ctrl.editMode = true;
+        }
 
         //SEARCH MEMBERS
         function searchMembers() {
@@ -62,10 +81,32 @@ module.exports = function (app) {
 
         //CREATE
         function create() {
+            if (!ctrl.selectedMember) {
+                dialogs.notify("Error!", "Select member!", {size: "md"});
+                return;
+            }
+            if (!ctrl.selectedSession) {
+                dialogs.notify("Error!", "Select session!", {size: "md"});
+                return;
+            }
+
+            if (!ctrl.editedSpeech.text) {
+                dialogs.notify("Error!", "Insert speech text!", {size: "md"});
+                return;
+            }
+            ctrl.editedSpeech.member = {};
+            ctrl.editedSpeech.member.id = ctrl.selectedMember.id;
+            ctrl.editedSpeech.plenarySessionId = ctrl.selectedSession.id;
+            ctrl.editedSpeech.sessionDate = parseStringSessionIntoDate(ctrl.selectedSession);
             Speeches.post(ctrl.editedSpeech).then(function (response) {
-                ctrl.editedSpeech = {};
-                dialogs.notify("Success!", "Speech successfully created!", {size: "md"});
-            });
+                    ctrl.editedSpeech = {};
+                    ctrl.selectedMember = null;
+                    ctrl.selectedSession = null;
+                    dialogs.notify("Success!", "Speech successfully created!", {size: "md"});
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.error, {size: "md"});
+                });
         }
 
         //UPDATE
@@ -75,6 +116,24 @@ module.exports = function (app) {
                 ctrl.editedSpeech = speech;
                 dialogs.notify("Success!", "Speech successfully updated!", {size: "md"});
             })
+        }
+
+        function selectMember(member) {
+            ctrl.selectedMember = member;
+        }
+
+        function selectSession(session) {
+            ctrl.selectedSession = session;
+        }
+
+        function parseStringSessionIntoDate(session) {
+            if (session.date) {
+                var day = session.date.substring(0, session.date.indexOf('.'));
+                var month = session.date.substring(session.date.indexOf('.') + 1, session.date.lastIndexOf('.'));
+                var year = session.date.substring(session.date.lastIndexOf('.') + 1, session.date.length);
+                return new Date(year, month - 1, day);
+                //year + '-' + month + '-' + day + '\'T\'01:00:00.000Z';
+            }
         }
 
     }

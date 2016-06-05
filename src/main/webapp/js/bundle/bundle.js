@@ -52,21 +52,21 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(2);
+	__webpack_require__(3);
 	__webpack_require__(4);
 	__webpack_require__(5);
 	__webpack_require__(6);
 	__webpack_require__(7);
-	__webpack_require__(8);
+	__webpack_require__(9);
 	__webpack_require__(10);
-	__webpack_require__(11);
-	__webpack_require__(14);
-	__webpack_require__(16);
-	__webpack_require__(18);
-	__webpack_require__(20);
-	__webpack_require__(22);
-	__webpack_require__(24);
-	__webpack_require__(26);
-	__webpack_require__(31);
+	__webpack_require__(13);
+	__webpack_require__(15);
+	__webpack_require__(17);
+	__webpack_require__(19);
+	__webpack_require__(21);
+	__webpack_require__(23);
+	__webpack_require__(25);
+	__webpack_require__(30);
 
 
 	var app = angular
@@ -162,26 +162,38 @@
 	            controller: 'CreateSpeechCtrl',
 	            controllerAs: 'csctrl'
 	        })
+	        .when('/member-speeches', {
+	            templateUrl: 'views/member-speeches.html',
+	            controller: 'MemberSpeechesCtrl',
+	            controllerAs: 'msctrl'
+	        })
+	        .when('/session-speeches', {
+	            templateUrl: 'views/session-speeches.html',
+	            controller: 'SessionSpeechesCtrl',
+	            controllerAs: 'ssctrl'
+	        })
 	}]);
 
 
 	//controllers
+	__webpack_require__(32)(app);
 	__webpack_require__(33)(app);
 	__webpack_require__(34)(app);
 	__webpack_require__(35)(app);
 	__webpack_require__(36)(app);
 	__webpack_require__(37)(app);
-	__webpack_require__(43)(app);
-	__webpack_require__(44)(app);
 	__webpack_require__(38)(app);
 	__webpack_require__(39)(app);
 	__webpack_require__(40)(app);
+	__webpack_require__(41)(app);
+	__webpack_require__(42)(app);
+	__webpack_require__(43)(app);
 
 	//factories
-	__webpack_require__(41)(app);
+	__webpack_require__(44)(app);
 
 	//directives
-	__webpack_require__(42)(app);
+	__webpack_require__(45)(app);
 
 /***/ },
 /* 2 */
@@ -10021,8 +10033,7 @@
 
 
 /***/ },
-/* 3 */,
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -12392,7 +12403,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/*
@@ -12442,7 +12453,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/*global jQuery */
@@ -12492,7 +12503,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -12547,15 +12558,15 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(9);
+	__webpack_require__(8);
 	module.exports = angular;
 
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {/**
@@ -42989,7 +43000,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
 	(function() {
@@ -44345,13 +44356,13 @@
 
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(12);
+	module.exports = __webpack_require__(11);
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -59428,10 +59439,10 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)(module), (function() { return this; }())))
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -59447,15 +59458,15 @@
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(15);
+	__webpack_require__(14);
 	module.exports = 'ngAnimate';
 
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	/**
@@ -63609,15 +63620,15 @@
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(17);
+	__webpack_require__(16);
 	module.exports = 'ngSanitize';
 
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports) {
 
 	/**
@@ -64340,17 +64351,17 @@
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(8);
-	__webpack_require__(19);
+	__webpack_require__(7);
+	__webpack_require__(18);
 
 	module.exports = 'duScroll';
 
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/**
@@ -64981,18 +64992,18 @@
 	  };
 	}]);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)(module)))
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(21);
+	__webpack_require__(20);
 	module.exports = 'ngRoute';
 
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports) {
 
 	/**
@@ -66030,15 +66041,15 @@
 
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(23);
+	__webpack_require__(22);
 	module.exports = 'angular-loading-bar';
 
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports) {
 
 	/*! 
@@ -66385,15 +66396,15 @@
 
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(25);
+	__webpack_require__(24);
 	module.exports = 'LocalStorageModule';
 
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports) {
 
 	var isDefined = angular.isDefined,
@@ -66836,17 +66847,17 @@
 
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(26);
 	__webpack_require__(27);
 	__webpack_require__(28);
-	__webpack_require__(29);
 	module.exports = 'dialogs.main';
 
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports) {
 
 	/**
@@ -67417,7 +67428,7 @@
 	})();
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports) {
 
 	/**
@@ -67564,10 +67575,10 @@
 
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(30)();
+	exports = module.exports = __webpack_require__(29)();
 	// imports
 
 
@@ -67578,7 +67589,7 @@
 
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports) {
 
 	/*
@@ -67634,16 +67645,16 @@
 
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(32);
+	__webpack_require__(31);
 
 	module.exports = 'ui.bootstrap';
 
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports) {
 
 	/*
@@ -74995,7 +75006,7 @@
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
 
 /***/ },
-/* 33 */
+/* 32 */
 /***/ function(module, exports) {
 
 	module.exports = function (app) {
@@ -75021,7 +75032,7 @@
 
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports) {
 
 	module.exports = function (app) {
@@ -75045,7 +75056,7 @@
 
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports) {
 
 	module.exports = function (app) {
@@ -75111,7 +75122,7 @@
 
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports) {
 
 	module.exports = function (app) {
@@ -75189,7 +75200,7 @@
 
 
 /***/ },
-/* 37 */
+/* 36 */
 /***/ function(module, exports) {
 
 	module.exports = function (app) {
@@ -75234,293 +75245,7 @@
 
 
 /***/ },
-/* 38 */
-/***/ function(module, exports) {
-
-	module.exports = function (app) {
-
-	    app.controller("MembersCtrl", MembersCtrl);
-
-	    MembersCtrl.$inject = ['Members', 'localStorageService', 'dialogs'];
-	    function MembersCtrl(Members, localStorageService, dialogs) {
-
-	        var ctrl = this;
-	        ctrl.list = list;
-	        ctrl.remove = remove;
-	        ctrl.changePage = changePage;
-	        ctrl.search = search;
-	        ctrl.updateMember = updateMember;
-	        ctrl.createMember = createMember;
-	        ctrl.showBiography = showBiography;
-
-	        ctrl.members = [];
-	        ctrl.currentPage = null;
-	        ctrl.searchTerm = null;
-
-	        //GET ALL
-	        function list() {
-	            Members.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (members) {
-	                ctrl.members = members;
-	            });
-	        }
-
-	        //SEARCH
-	        function search() {
-	            ctrl.currentPage = 1;
-	            list();
-	        }
-
-	        // DELETE
-	        function remove(memberId) {
-	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected member?", {size: "md"});
-	            dlg.result.then(function () {
-	                Members.one(memberId).remove().then(function () {
-	                    list();
-	                }, function (response) {
-	                    dialogs.notify("Error!", response.message, null);
-	                });
-	            });
-	        }
-
-	        //CHANGE PAGE
-	        function changePage(page) {
-	            ctrl.currentPage = page;
-	            list();
-	        }
-
-	        function createMember() {
-	            localStorageService.remove("editedMember");
-	            window.location = '#/create-member';
-	        }
-
-	        function updateMember(member) {
-	            localStorageService.set("editedMember", member);
-	            window.location = "#/create-member";
-	        }
-
-	        function showBiography(m) {
-	            dialogs.notify(m.name + ' ' + m.lastName + ' biography', m.biography, null);
-	        }
-
-	    }
-	};
-
-
-/***/ },
-/* 39 */
-/***/ function(module, exports) {
-
-	module.exports = function (app) {
-
-	    app.controller("SpeechesCtrl", SpeechesCtrl);
-
-	    SpeechesCtrl.$inject = ['Speeches', 'localStorageService', 'dialogs'];
-	    function SpeechesCtrl(Speeches, localStorageService, dialogs) {
-
-	        var ctrl = this;
-	        ctrl.list = list;
-	        ctrl.remove = remove;
-	        ctrl.changePage = changePage;
-	        ctrl.search = search;
-	        ctrl.updateSpeech = updateSpeech;
-	        ctrl.createSpeech = createSpeech;
-	        ctrl.showText = showText;
-
-	        ctrl.speeches = [];
-	        ctrl.currentPage = null;
-	        ctrl.searchTerm = null;
-
-	        //GET ALL
-	        function list() {
-	            Speeches.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (speeches) {
-	                ctrl.speeches = speeches;
-	            });
-	        }
-
-	        //SEARCH
-	        function search() {
-	            ctrl.currentPage = 1;
-	            list();
-	        }
-
-	        // DELETE
-	        function remove(speechId) {
-	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
-	            dlg.result.then(function () {
-	                Speeches.one(speechId).remove().then(function () {
-	                    list();
-	                }, function (response) {
-	                    dialogs.notify("Error!", response.message, null);
-	                });
-	            });
-	        }
-
-	        //CHANGE PAGE
-	        function changePage(page) {
-	            ctrl.currentPage = page;
-	            list();
-	        }
-
-	        function createSpeech() {
-	            localStorageService.remove("editedSpeech");
-	            window.location = '#/create-speech';
-	        }
-
-	        function updateSpeech(speech) {
-	            localStorageService.set("editedSpeech", speech);
-	            window.location = "#/create-speech";
-	        }
-
-	        function showText(s) {
-	            dialogs.notify(s.member.name + ' ' + s.member.lastName + ' speech on ' + s.sessionDate, s.text, null);
-	        }
-
-	    }
-	};
-
-
-/***/ },
-/* 40 */
-/***/ function(module, exports) {
-
-	module.exports = function (app) {
-
-	    app.controller("SessionsCtrl", SessionsCtrl);
-
-	    SessionsCtrl.$inject = ['Sessions', 'localStorageService', 'dialogs'];
-	    function SessionsCtrl(Sessions, localStorageService, dialogs) {
-
-	        var ctrl = this;
-	        ctrl.list = list;
-	        ctrl.remove = remove;
-	        ctrl.changePage = changePage;
-	        ctrl.search = search;
-	        ctrl.updateSession = updateSession;
-	        ctrl.createSession = createSession;
-	        ctrl.showTranscript = showTranscript;
-	        ctrl.showAgenda = showAgenda;
-
-	        ctrl.sessions = [];
-	        ctrl.currentPage = null;
-	        ctrl.searchTerm = null;
-
-	        //GET ALL
-	        function list() {
-	            Sessions.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (sessions) {
-	                ctrl.sessions = sessions;
-	            });
-	        }
-
-	        //SEARCH
-	        function search() {
-	            ctrl.currentPage = 1;
-	            list();
-	        }
-
-	        // DELETE
-	        function remove(sessionId) {
-	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected session?", {size: "md"});
-	            dlg.result.then(function () {
-	                Sessions.one(sessionId).remove().then(function () {
-	                    list();
-	                }, function (response) {
-	                    dialogs.notify("Error!", response.message, null);
-	                });
-	            });
-	        }
-
-	        //CHANGE PAGE
-	        function changePage(page) {
-	            ctrl.currentPage = page;
-	            list();
-	        }
-
-	        function createSession() {
-	            localStorageService.remove("editedSession");
-	            window.location = '#/create-session';
-	        }
-
-	        function updateSession(member) {
-	            localStorageService.set("editedSession", member);
-	            window.location = "#/create-session";
-	        }
-
-	        function showTranscript(s) {
-	            dialogs.notify('Transcript: ' + s.date, s.transcriptText, null);
-	        }
-
-	        function showAgenda(s) {
-	            dialogs.notify('Agenda: ' + s.date, s.agenda, null);
-	        }
-
-	    }
-	};
-
-
-
-/***/ },
-/* 41 */
-/***/ function(module, exports) {
-
-	module.exports = function (app) {
-
-	    app.factory("Members", Members);
-	    app.factory("Speeches", Speeches);
-	    app.factory("Towns", Towns);
-	    app.factory("Sessions", Sessions);
-	    app.factory("Parties", Parties);
-
-	    Members.$inject = ['Restangular'];
-	    function Members(Restangular) {
-	        return Restangular.service('members');
-	    }
-
-	    Speeches.$inject = ['Restangular'];
-	    function Speeches(Restangular) {
-	        return Restangular.service('speeches');
-	    }
-
-	    Towns.$inject = ['Restangular'];
-	    function Towns(Restangular) {
-	        return Restangular.service('towns');
-	    }
-
-	    Sessions.$inject = ['Restangular'];
-	    function Sessions(Restangular) {
-	        return Restangular.service('sessions');
-	    }
-
-	    Parties.$inject = ['Restangular'];
-	    function Parties(Restangular) {
-	        return Restangular.service('parties');
-	    }
-	};
-
-/***/ },
-/* 42 */
-/***/ function(module, exports) {
-
-	module.exports = function (app) {
-
-	    app.directive('paginator', paginator);
-
-	    function paginator() {
-	        return {
-	            restrict: 'E',
-	            scope: {
-	                collection: '=',
-	                changePage: '&'
-	            },
-	            templateUrl: './././views/paginator.html',
-	            link: function (scope, elem, attrs) {
-	                scope.changePage()(1);
-	            }
-	        };
-	    }
-	};
-
-/***/ },
-/* 43 */
+/* 37 */
 /***/ function(module, exports) {
 
 	module.exports = function (app) {
@@ -75589,7 +75314,7 @@
 
 
 /***/ },
-/* 44 */
+/* 38 */
 /***/ function(module, exports) {
 
 	module.exports = function (app) {
@@ -75605,6 +75330,8 @@
 	        ctrl.searchMembers = searchMembers;
 	        ctrl.changeMembersPage = changeMembersPage;
 	        ctrl.changeSessionsPage = changeSessionsPage;
+	        ctrl.selectMember = selectMember;
+	        ctrl.selectSession = selectSession;
 
 	        ctrl.editedSpeech = {};
 	        ctrl.editMode = false;
@@ -75615,6 +75342,23 @@
 	        ctrl.searchMemberTerm = null;
 	        ctrl.currentMembersPage = null;
 	        ctrl.currentSessionsPage = null;
+	        ctrl.selectedMember = null;
+	        ctrl.selectedSession = null;
+
+	        // CHECK PAGE MODE - EDIT || CREATE
+	        if (localStorageService.get("editedSpeech") != null) {
+	            ctrl.editedSpeech = localStorageService.get("editedSpeech");
+	            ctrl.selectedMember = ctrl.editedSpeech.member;
+	            ctrl.selectedSession = {};
+	            ctrl.selectedSession.id = ctrl.editedSpeech.plenarySessionId;
+	            if (ctrl.editedSpeech.sessionDate) {
+	                var day = ctrl.editedSpeech.sessionDate.substring(0, ctrl.editedSpeech.sessionDate.indexOf('.'));
+	                var month = ctrl.editedSpeech.sessionDate.substring(ctrl.editedSpeech.sessionDate.indexOf('.') + 1, ctrl.editedSpeech.sessionDate.lastIndexOf('.'));
+	                var year = ctrl.editedSpeech.sessionDate.substring(ctrl.editedSpeech.sessionDate.lastIndexOf('.') + 1, ctrl.editedSpeech.sessionDate.length);
+	                ctrl.editedSpeech.sessionDate = new Date(year, month - 1, day);
+	            }
+	            ctrl.editMode = true;
+	        }
 
 	        //SEARCH MEMBERS
 	        function searchMembers() {
@@ -75656,10 +75400,32 @@
 
 	        //CREATE
 	        function create() {
+	            if (!ctrl.selectedMember) {
+	                dialogs.notify("Error!", "Select member!", {size: "md"});
+	                return;
+	            }
+	            if (!ctrl.selectedSession) {
+	                dialogs.notify("Error!", "Select session!", {size: "md"});
+	                return;
+	            }
+
+	            if (!ctrl.editedSpeech.text) {
+	                dialogs.notify("Error!", "Insert speech text!", {size: "md"});
+	                return;
+	            }
+	            ctrl.editedSpeech.member = {};
+	            ctrl.editedSpeech.member.id = ctrl.selectedMember.id;
+	            ctrl.editedSpeech.plenarySessionId = ctrl.selectedSession.id;
+	            ctrl.editedSpeech.sessionDate = parseStringSessionIntoDate(ctrl.selectedSession);
 	            Speeches.post(ctrl.editedSpeech).then(function (response) {
-	                ctrl.editedSpeech = {};
-	                dialogs.notify("Success!", "Speech successfully created!", {size: "md"});
-	            });
+	                    ctrl.editedSpeech = {};
+	                    ctrl.selectedMember = null;
+	                    ctrl.selectedSession = null;
+	                    dialogs.notify("Success!", "Speech successfully created!", {size: "md"});
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.error, {size: "md"});
+	                });
 	        }
 
 	        //UPDATE
@@ -75671,9 +75437,524 @@
 	            })
 	        }
 
+	        function selectMember(member) {
+	            ctrl.selectedMember = member;
+	        }
+
+	        function selectSession(session) {
+	            ctrl.selectedSession = session;
+	        }
+
+	        function parseStringSessionIntoDate(session) {
+	            if (session.date) {
+	                var day = session.date.substring(0, session.date.indexOf('.'));
+	                var month = session.date.substring(session.date.indexOf('.') + 1, session.date.lastIndexOf('.'));
+	                var year = session.date.substring(session.date.lastIndexOf('.') + 1, session.date.length);
+	                return new Date(year, month - 1, day);
+	                //year + '-' + month + '-' + day + '\'T\'01:00:00.000Z';
+	            }
+	        }
+
 	    }
 	};
 
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	module.exports = function (app) {
+
+	    app.controller("MembersCtrl", MembersCtrl);
+
+	    MembersCtrl.$inject = ['Members', 'localStorageService', 'dialogs'];
+	    function MembersCtrl(Members, localStorageService, dialogs) {
+
+	        var ctrl = this;
+	        ctrl.list = list;
+	        ctrl.remove = remove;
+	        ctrl.changePage = changePage;
+	        ctrl.search = search;
+	        ctrl.updateMember = updateMember;
+	        ctrl.createMember = createMember;
+	        ctrl.showBiography = showBiography;
+	        ctrl.seeSpeeches = seeSpeeches;
+
+	        ctrl.members = [];
+	        ctrl.currentPage = null;
+	        ctrl.searchTerm = null;
+
+	        //GET ALL
+	        function list() {
+	            Members.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (members) {
+	                ctrl.members = members;
+	            },
+	            function (response) {
+	                dialogs.notify("Error!", response.data.error, null);
+	            });
+	        }
+
+	        //SEARCH
+	        function search() {
+	            ctrl.currentPage = 1;
+	            list();
+	        }
+
+	        // DELETE
+	        function remove(memberId) {
+	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected member?", {size: "md"});
+	            dlg.result.then(function () {
+	                Members.one(memberId).remove().then(function () {
+	                    list();
+	                }, function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                });
+	            });
+	        }
+
+	        //CHANGE PAGE
+	        function changePage(page) {
+	            ctrl.currentPage = page;
+	            list();
+	        }
+
+	        function createMember() {
+	            localStorageService.remove("editedMember");
+	            window.location = '#/create-member';
+	        }
+
+	        function updateMember(member) {
+	            localStorageService.set("editedMember", member);
+	            window.location = "#/create-member";
+	        }
+
+	        function showBiography(m) {
+	            dialogs.notify(m.name + ' ' + m.lastName + ' biography', m.biography, null);
+	        }
+
+	        function seeSpeeches(m) {
+	            localStorageService.set("member", m);
+	            window.location = '#/member-speeches';
+	        }
+
+	    }
+	};
+
+
+/***/ },
+/* 40 */
+/***/ function(module, exports) {
+
+	module.exports = function (app) {
+
+	    app.controller("SpeechesCtrl", SpeechesCtrl);
+
+	    SpeechesCtrl.$inject = ['Speeches', 'localStorageService', 'dialogs'];
+	    function SpeechesCtrl(Speeches, localStorageService, dialogs) {
+
+	        var ctrl = this;
+	        ctrl.list = list;
+	        ctrl.remove = remove;
+	        ctrl.changePage = changePage;
+	        ctrl.search = search;
+	        ctrl.updateSpeech = updateSpeech;
+	        ctrl.createSpeech = createSpeech;
+	        ctrl.showText = showText;
+
+	        ctrl.speeches = [];
+	        ctrl.currentPage = null;
+	        ctrl.searchTerm = null;
+
+	        //GET ALL
+	        function list() {
+	            Speeches.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+	                function (speeches) {
+	                    ctrl.speeches = speeches;
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                }
+	            );
+	        }
+
+	        //SEARCH
+	        function search() {
+	            ctrl.currentPage = 1;
+	            list();
+	        }
+
+	        // DELETE
+	        function remove(speechId) {
+	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
+	            dlg.result.then(function () {
+	                Speeches.one(speechId).remove().then(function () {
+	                        list();
+	                    }, function (response) {
+	                        dialogs.notify("Error!", response.data.error, null);
+	                    }
+	                );
+	            });
+	        }
+
+	        //CHANGE PAGE
+	        function changePage(page) {
+	            ctrl.currentPage = page;
+	            list();
+	        }
+
+	        function createSpeech() {
+	            localStorageService.remove("editedSpeech");
+	            window.location = '#/create-speech';
+	        }
+
+	        function updateSpeech(speech) {
+	            localStorageService.set("editedSpeech", speech);
+	            window.location = "#/create-speech";
+	        }
+
+	        function showText(s) {
+	            dialogs.notify(s.member.name + ' ' + s.member.lastName + ' speech on ' + s.sessionDate, s.text, null);
+	        }
+
+	    }
+	};
+
+
+/***/ },
+/* 41 */
+/***/ function(module, exports) {
+
+	module.exports = function (app) {
+
+	    app.controller("SessionsCtrl", SessionsCtrl);
+
+	    SessionsCtrl.$inject = ['Sessions', 'localStorageService', 'dialogs'];
+	    function SessionsCtrl(Sessions, localStorageService, dialogs) {
+
+	        var ctrl = this;
+	        ctrl.list = list;
+	        ctrl.remove = remove;
+	        ctrl.changePage = changePage;
+	        ctrl.search = search;
+	        ctrl.updateSession = updateSession;
+	        ctrl.createSession = createSession;
+	        ctrl.showTranscript = showTranscript;
+	        ctrl.showAgenda = showAgenda;
+	        ctrl.seeSpeeches = seeSpeeches;
+
+	        ctrl.sessions = [];
+	        ctrl.currentPage = null;
+	        ctrl.searchTerm = null;
+
+	        //GET ALL
+	        function list() {
+	            Sessions.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (sessions) {
+	                ctrl.sessions = sessions;
+	            });
+	        }
+
+	        //SEARCH
+	        function search() {
+	            ctrl.currentPage = 1;
+	            list();
+	        }
+
+	        // DELETE
+	        function remove(sessionId) {
+	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected session?", {size: "md"});
+	            dlg.result.then(function () {
+	                Sessions.one(sessionId).remove().then(function () {
+	                    list();
+	                }, function (response) {
+	                    dialogs.notify("Error!", response.error, null);
+	                });
+	            });
+	        }
+
+	        //CHANGE PAGE
+	        function changePage(page) {
+	            ctrl.currentPage = page;
+	            list();
+	        }
+
+	        function createSession() {
+	            localStorageService.remove("editedSession");
+	            window.location = '#/create-session';
+	        }
+
+	        function updateSession(member) {
+	            localStorageService.set("editedSession", member);
+	            window.location = "#/create-session";
+	        }
+
+	        function showTranscript(s) {
+	            dialogs.notify('Transcript: ' + s.date, s.transcriptText, null);
+	        }
+
+	        function showAgenda(s) {
+	            dialogs.notify('Agenda: ' + s.date, s.agenda, null);
+	        }
+
+	        function seeSpeeches(s) {
+	            localStorageService.set("session", s);
+	            window.location = '#/session-speeches';
+	        }
+
+	    }
+	};
+
+
+
+/***/ },
+/* 42 */
+/***/ function(module, exports) {
+
+	module.exports = function (app) {
+
+	    app.controller("MemberSpeechesCtrl", MemberSpeechesCtrl);
+
+	    MemberSpeechesCtrl.$inject = ['Speeches', 'localStorageService', 'dialogs', 'MemberSpeeches'];
+	    function MemberSpeechesCtrl(Speeches, localStorageService, dialogs, MemberSpeeches) {
+
+	        var ctrl = this;
+	        ctrl.list = list;
+	        ctrl.remove = remove;
+	        ctrl.changePage = changePage;
+	        ctrl.search = search;
+	        ctrl.updateSpeech = updateSpeech;
+	        ctrl.createSpeech = createSpeech;
+	        ctrl.showText = showText;
+
+	        ctrl.speeches = [];
+	        ctrl.currentPage = null;
+	        ctrl.searchTerm = null;
+	        ctrl.member = null;
+	        // CHECK PAGE MODE - EDIT || CREATE
+
+	        //GET ALL
+	        function list() {
+	            if (!ctrl.member) {
+	                if (localStorageService.get("member") != null) {
+	                    ctrl.member = localStorageService.get("member");
+	                }
+	            }
+	            MemberSpeeches.forMember(ctrl.member.id).getList({
+	                page: ctrl.currentPage,
+	                query: ctrl.searchTerm
+	            }).then(
+	                function (speeches) {
+	                    ctrl.speeches = speeches;
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                });
+	        }
+
+	        //SEARCH
+	        function search() {
+	            ctrl.currentPage = 1;
+	            list();
+	        }
+
+	        // DELETE
+	        function remove(speechId) {
+	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
+	            dlg.result.then(function () {
+	                Speeches.one(speechId).remove().then(function () {
+	                    list();
+	                }, function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                });
+	            });
+	        }
+
+	        //CHANGE PAGE
+	        function changePage(page) {
+	            ctrl.currentPage = page;
+	            list();
+	        }
+
+	        function createSpeech() {
+	            localStorageService.remove("editedSpeech");
+	            window.location = '#/create-speech';
+	        }
+
+	        function updateSpeech(speech) {
+	            localStorageService.set("editedSpeech", speech);
+	            window.location = "#/create-speech";
+	        }
+
+	        function showText(s) {
+	            dialogs.notify(s.member.name + ' ' + s.member.lastName + ' speech on ' + s.sessionDate, s.text, null);
+	        }
+
+	    }
+	};
+
+
+/***/ },
+/* 43 */
+/***/ function(module, exports) {
+
+	module.exports = function (app) {
+
+	    app.controller("SessionSpeechesCtrl", SessionSpeechesCtrl);
+
+	    SessionSpeechesCtrl.$inject = ['Speeches', 'localStorageService', 'dialogs', 'SessionSpeeches'];
+	    function SessionSpeechesCtrl(Speeches, localStorageService, dialogs, SessionSpeeches) {
+
+	        var ctrl = this;
+	        ctrl.list = list;
+	        ctrl.remove = remove;
+	        ctrl.changePage = changePage;
+	        ctrl.search = search;
+	        ctrl.updateSpeech = updateSpeech;
+	        ctrl.createSpeech = createSpeech;
+	        ctrl.showText = showText;
+
+	        ctrl.speeches = [];
+	        ctrl.currentPage = null;
+	        ctrl.searchTerm = null;
+	        ctrl.session = null;
+	        // CHECK PAGE MODE - EDIT || CREATE
+
+	        //GET ALL
+	        function list() {
+	            if (!ctrl.session) {
+	                if (localStorageService.get("session") != null) {
+	                    ctrl.session = localStorageService.get("session");
+	                }
+	            }
+	            SessionSpeeches.forSession(ctrl.session.id).getList({
+	                page: ctrl.currentPage,
+	                query: ctrl.searchTerm
+	            }).then(function (speeches) {
+	                ctrl.speeches = speeches;
+	            });
+	        }
+
+	        //SEARCH
+	        function search() {
+	            ctrl.currentPage = 1;
+	            list();
+	        }
+
+	        // DELETE
+	        function remove(speechId) {
+	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
+	            dlg.result.then(function () {
+	                Speeches.one(speechId).remove().then(function () {
+	                    list();
+	                }, function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                });
+	            });
+	        }
+
+	        //CHANGE PAGE
+	        function changePage(page) {
+	            ctrl.currentPage = page;
+	            list();
+	        }
+
+	        function createSpeech() {
+	            localStorageService.remove("editedSpeech");
+	            window.location = '#/create-speech';
+	        }
+
+	        function updateSpeech(speech) {
+	            localStorageService.set("editedSpeech", speech);
+	            window.location = "#/create-speech";
+	        }
+
+	        function showText(s) {
+	            dialogs.notify(s.member.name + ' ' + s.member.lastName + ' speech on ' + s.sessionDate, s.text, null);
+	        }
+
+	    }
+	};
+
+
+/***/ },
+/* 44 */
+/***/ function(module, exports) {
+
+	module.exports = function (app) {
+
+	    app.factory("Members", Members);
+	    app.factory("Speeches", Speeches);
+	    app.factory("Towns", Towns);
+	    app.factory("Sessions", Sessions);
+	    app.factory("Parties", Parties);
+	    app.factory("MemberSpeeches", MemberSpeeches);
+	    app.factory("SessionSpeeches", SessionSpeeches);
+
+	    Members.$inject = ['Restangular'];
+	    function Members(Restangular) {
+	        return Restangular.service('members');
+	    }
+
+	    Speeches.$inject = ['Restangular'];
+	    function Speeches(Restangular) {
+	        return Restangular.service('speeches');
+	    }
+
+	    Towns.$inject = ['Restangular'];
+	    function Towns(Restangular) {
+	        return Restangular.service('towns');
+	    }
+
+	    Sessions.$inject = ['Restangular'];
+	    function Sessions(Restangular) {
+	        return Restangular.service('sessions');
+	    }
+
+	    Parties.$inject = ['Restangular'];
+	    function Parties(Restangular) {
+	        return Restangular.service('parties');
+	    }
+
+	    MemberSpeeches.$inject = ['Restangular'];
+	    function MemberSpeeches(Restangular) {
+	        return {
+	            forMember: function (memberId) {
+	                return Restangular.service('speeches', Restangular.one('members', memberId));
+	            }
+	        };
+	    }
+
+	    SessionSpeeches.$inject = ['Restangular'];
+	    function SessionSpeeches(Restangular) {
+	        return {
+	            forSession: function (sessionId) {
+	                return Restangular.service('speeches', Restangular.one('sessions', sessionId));
+	            }
+	        };
+	    }
+	};
+
+/***/ },
+/* 45 */
+/***/ function(module, exports) {
+
+	module.exports = function (app) {
+
+	    app.directive('paginator', paginator);
+
+	    function paginator() {
+	        return {
+	            restrict: 'E',
+	            scope: {
+	                collection: '=',
+	                changePage: '&'
+	            },
+	            templateUrl: './././views/paginator.html',
+	            link: function (scope, elem, attrs) {
+	                scope.changePage()(1);
+	            }
+	        };
+	    }
+	};
 
 /***/ }
 /******/ ]);

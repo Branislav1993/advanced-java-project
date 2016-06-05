@@ -154,9 +154,9 @@ public class PlenarySessionsRestService {
 	@GET
 	@Path("/{id}/speeches")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
-	public Response getMemberSpeeches(	@PathParam("id") int id,
-										@PathParam("limit") int limit,
-										@PathParam("page") int page) {
+	public Response getPlenarySessionSpeeches(	@PathParam("id") int id,
+												@PathParam("limit") int limit,
+												@PathParam("page") int page) {
 		
 		// validation
 		int validLimit = ParameterChecker.check(limit, Settings.getInstance().config.query.limit);

@@ -109,6 +109,16 @@ app.config(['$routeProvider', function ($routeProvider) {
             controller: 'CreateSpeechCtrl',
             controllerAs: 'csctrl'
         })
+        .when('/member-speeches', {
+            templateUrl: 'views/member-speeches.html',
+            controller: 'MemberSpeechesCtrl',
+            controllerAs: 'msctrl'
+        })
+        .when('/session-speeches', {
+            templateUrl: 'views/session-speeches.html',
+            controller: 'SessionSpeechesCtrl',
+            controllerAs: 'ssctrl'
+        })
 }]);
 
 
@@ -123,6 +133,8 @@ require(__dirname + '/angular_code/controllers/createSpeech.controller.js')(app)
 require(__dirname + '/angular_code/controllers/members.controller.js')(app);
 require(__dirname + '/angular_code/controllers/speeches.controller.js')(app);
 require(__dirname + '/angular_code/controllers/sessions.controller.js')(app);
+require(__dirname + '/angular_code/controllers/memberSpeeches.controller.js')(app);
+require(__dirname + '/angular_code/controllers/sessionSpeeches.controller.js')(app);
 
 //factories
 require(__dirname + '/angular_code/factories/factory.js')(app);

@@ -1,9 +1,9 @@
 module.exports = function (app) {
 
-    app.controller("SpeechesCtrl", SpeechesCtrl);
+    app.controller("MemberSpeechesCtrl", MemberSpeechesCtrl);
 
-    SpeechesCtrl.$inject = ['Speeches', 'localStorageService', 'dialogs'];
-    function SpeechesCtrl(Speeches, localStorageService, dialogs) {
+    MemberSpeechesCtrl.$inject = ['Speeches', 'localStorageService', 'dialogs', 'MemberSpeeches'];
+    function MemberSpeechesCtrl(Speeches, localStorageService, dialogs, MemberSpeeches) {
 
         var ctrl = this;
         ctrl.list = list;
@@ -17,17 +17,26 @@ module.exports = function (app) {
         ctrl.speeches = [];
         ctrl.currentPage = null;
         ctrl.searchTerm = null;
+        ctrl.member = null;
+        // CHECK PAGE MODE - EDIT || CREATE
 
         //GET ALL
         function list() {
-            Speeches.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+            if (!ctrl.member) {
+                if (localStorageService.get("member") != null) {
+                    ctrl.member = localStorageService.get("member");
+                }
+            }
+            MemberSpeeches.forMember(ctrl.member.id).getList({
+                page: ctrl.currentPage,
+                query: ctrl.searchTerm
+            }).then(
                 function (speeches) {
                     ctrl.speeches = speeches;
                 },
                 function (response) {
                     dialogs.notify("Error!", response.data.error, null);
-                }
-            );
+                });
         }
 
         //SEARCH
@@ -41,11 +50,10 @@ module.exports = function (app) {
             var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
             dlg.result.then(function () {
                 Speeches.one(speechId).remove().then(function () {
-                        list();
-                    }, function (response) {
-                        dialogs.notify("Error!", response.data.error, null);
-                    }
-                );
+                    list();
+                }, function (response) {
+                    dialogs.notify("Error!", response.data.error, null);
+                });
             });
         }
 

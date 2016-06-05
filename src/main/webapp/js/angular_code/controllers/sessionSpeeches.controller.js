@@ -1,9 +1,9 @@
 module.exports = function (app) {
 
-    app.controller("SpeechesCtrl", SpeechesCtrl);
+    app.controller("SessionSpeechesCtrl", SessionSpeechesCtrl);
 
-    SpeechesCtrl.$inject = ['Speeches', 'localStorageService', 'dialogs'];
-    function SpeechesCtrl(Speeches, localStorageService, dialogs) {
+    SessionSpeechesCtrl.$inject = ['Speeches', 'localStorageService', 'dialogs', 'SessionSpeeches'];
+    function SessionSpeechesCtrl(Speeches, localStorageService, dialogs, SessionSpeeches) {
 
         var ctrl = this;
         ctrl.list = list;
@@ -17,17 +17,22 @@ module.exports = function (app) {
         ctrl.speeches = [];
         ctrl.currentPage = null;
         ctrl.searchTerm = null;
+        ctrl.session = null;
+        // CHECK PAGE MODE - EDIT || CREATE
 
         //GET ALL
         function list() {
-            Speeches.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
-                function (speeches) {
-                    ctrl.speeches = speeches;
-                },
-                function (response) {
-                    dialogs.notify("Error!", response.data.error, null);
+            if (!ctrl.session) {
+                if (localStorageService.get("session") != null) {
+                    ctrl.session = localStorageService.get("session");
                 }
-            );
+            }
+            SessionSpeeches.forSession(ctrl.session.id).getList({
+                page: ctrl.currentPage,
+                query: ctrl.searchTerm
+            }).then(function (speeches) {
+                ctrl.speeches = speeches;
+            });
         }
 
         //SEARCH
@@ -41,11 +46,10 @@ module.exports = function (app) {
             var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
             dlg.result.then(function () {
                 Speeches.one(speechId).remove().then(function () {
-                        list();
-                    }, function (response) {
-                        dialogs.notify("Error!", response.data.error, null);
-                    }
-                );
+                    list();
+                }, function (response) {
+                    dialogs.notify("Error!", response.data.error, null);
+                });
             });
         }
 

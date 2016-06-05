@@ -14,6 +14,7 @@ module.exports = function (app) {
         ctrl.createSession = createSession;
         ctrl.showTranscript = showTranscript;
         ctrl.showAgenda = showAgenda;
+        ctrl.seeSpeeches = seeSpeeches;
 
         ctrl.sessions = [];
         ctrl.currentPage = null;
@@ -39,7 +40,7 @@ module.exports = function (app) {
                 Sessions.one(sessionId).remove().then(function () {
                     list();
                 }, function (response) {
-                    dialogs.notify("Error!", response.message, null);
+                    dialogs.notify("Error!", response.error, null);
                 });
             });
         }
@@ -66,6 +67,11 @@ module.exports = function (app) {
 
         function showAgenda(s) {
             dialogs.notify('Agenda: ' + s.date, s.agenda, null);
+        }
+
+        function seeSpeeches(s) {
+            localStorageService.set("session", s);
+            window.location = '#/session-speeches';
         }
 
     }
