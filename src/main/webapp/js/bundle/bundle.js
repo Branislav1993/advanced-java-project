@@ -75067,6 +75067,7 @@
 	    function PartiesCtrl(Parties, localStorageService, dialogs) {
 
 	        var ctrl = this;
+
 	        ctrl.list = list;
 	        ctrl.remove = remove;
 	        ctrl.changePage = changePage;
@@ -75080,9 +75081,13 @@
 
 	        //GET ALL
 	        function list() {
-	            Parties.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (parties) {
-	                ctrl.parties = parties;
-	            });
+	            Parties.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+	                function (parties) {
+	                    ctrl.parties = parties;
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                });
 	        }
 
 	        //SEARCH
@@ -75095,9 +75100,13 @@
 	        function remove(partyId) {
 	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected party?", {size: "md"});
 	            dlg.result.then(function () {
-	                Parties.one(partyId).remove().then(function () {
-	                    list();
-	                });
+	                Parties.one(partyId).remove().then(
+	                    function () {
+	                        list();
+	                    },
+	                    function (response) {
+	                        dialogs.notify("Error!", response.data.error, {size: "md"});
+	                    });
 	            });
 	        }
 
@@ -75133,6 +75142,7 @@
 	    function CreateMemberCtrl(Members, localStorageService, Towns, Restangular, dialogs) {
 
 	        var ctrl = this;
+
 	        ctrl.create = create;
 	        ctrl.update = update;
 
@@ -75144,9 +75154,13 @@
 
 	        //GET ALL TOWNS
 	        function listTowns() {
-	            Towns.getList().then(function (towns) {
-	                ctrl.towns = towns.plain();
-	            });
+	            Towns.getList().then(
+	                function (towns) {
+	                    ctrl.towns = towns.plain();
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                });
 	        }
 
 	        // CHECK PAGE MODE - EDIT || CREATE
@@ -75163,19 +75177,27 @@
 
 	        //CREATE
 	        function create() {
-	            Members.post(ctrl.editedMember).then(function (response) {
-	                ctrl.editedMember = {};
-	                dialogs.notify("Success!", "Member successfully created!", {size: "md"});
-	            });
+	            Members.post(ctrl.editedMember).then(
+	                function (response) {
+	                    ctrl.editedMember = {};
+	                    dialogs.notify("Success!", "Member successfully created!", {size: "md"});
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+	                });
 	        }
 
 	        //UPDATE
 	        function update() {
 	            ctrl.putMember = Restangular.copy(ctrl.editedMember);
-	            ctrl.putMember.put().then(function (member) {
-	                ctrl.editedMember = member;
-	                dialogs.notify("Success!", "Member successfully updated!", {size: "md"});
-	            })
+	            ctrl.putMember.put().then(
+	                function (member) {
+	                    ctrl.editedMember = member;
+	                    dialogs.notify("Success!", "Member successfully updated!", {size: "md"});
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+	                })
 	        }
 
 	        // DATE PICKER SETUP START
@@ -75211,6 +75233,7 @@
 	    function CreatePartyCtrl(Parties, localStorageService, Restangular, dialogs) {
 
 	        var ctrl = this;
+
 	        ctrl.create = create;
 	        ctrl.update = update;
 
@@ -75225,19 +75248,27 @@
 
 	        //CREATE
 	        function create() {
-	            Parties.post(ctrl.editedParty).then(function (response) {
-	                ctrl.editedParty = {};
-	                dialogs.notify("Success!", "Party successfully created!", {size: "md"});
-	            });
+	            Parties.post(ctrl.editedParty).then(
+	                function (response) {
+	                    ctrl.editedParty = {};
+	                    dialogs.notify("Success!", "Party successfully created!", {size: "md"});
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+	                });
 	        }
 
 	        //UPDATE
 	        function update() {
 	            ctrl.putParty = Restangular.copy(ctrl.editedParty);
-	            ctrl.putParty.put().then(function (party) {
-	                ctrl.editedParty = party;
-	                dialogs.notify("Success!", "Party successfully updated!", {size: "md"});
-	            })
+	            ctrl.putParty.put().then(
+	                function (party) {
+	                    ctrl.editedParty = party;
+	                    dialogs.notify("Success!", "Party successfully updated!", {size: "md"});
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+	                })
 	        }
 
 	    }
@@ -75256,6 +75287,7 @@
 	    function CreateSessionCtrl(Sessions, localStorageService, Restangular, dialogs) {
 
 	        var ctrl = this;
+
 	        ctrl.create = create;
 	        ctrl.update = update;
 
@@ -75277,19 +75309,27 @@
 	        //CREATE
 	        function create() {
 	            console.log(JSON.stringify(ctrl.editedSession));
-	            Sessions.post(ctrl.editedSession).then(function (response) {
-	                ctrl.editedSession = {};
-	                dialogs.notify("Success!", "Session successfully created!", {size: "md"});
-	            });
+	            Sessions.post(ctrl.editedSession).then(
+	                function (response) {
+	                    ctrl.editedSession = {};
+	                    dialogs.notify("Success!", "Session successfully created!", {size: "md"});
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+	                });
 	        }
 
 	        //UPDATE
 	        function update() {
 	            ctrl.putSession = Restangular.copy(ctrl.editedSession);
-	            ctrl.putSession.put().then(function (session) {
-	                ctrl.editedSession = session;
-	                dialogs.notify("Success!", "Session successfully updated!", {size: "md"});
-	            })
+	            ctrl.putSession.put().then(
+	                function (session) {
+	                    ctrl.editedSession = session;
+	                    dialogs.notify("Success!", "Session successfully updated!", {size: "md"});
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+	                })
 	        }
 
 	        // DATE PICKER SETUP START
@@ -75325,6 +75365,7 @@
 	    function CreateSpeechCtrl(Members, Speeches, Sessions, localStorageService, Restangular, dialogs) {
 
 	        var ctrl = this;
+
 	        ctrl.create = create;
 	        ctrl.update = update;
 	        ctrl.searchMembers = searchMembers;
@@ -75368,9 +75409,13 @@
 
 	        //GET ALL MEMBERS
 	        function listMembers() {
-	            Members.getList({page: ctrl.currentMembersPage, query: ctrl.searchMemberTerm}).then(function (members) {
-	                ctrl.members = members;
-	            });
+	            Members.getList({page: ctrl.currentMembersPage, query: ctrl.searchMemberTerm}).then(
+	                function (members) {
+	                    ctrl.members = members;
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                });
 	        }
 
 	        //CHANGE MEMBERS PAGE
@@ -75387,9 +75432,13 @@
 
 	        //GET ALL SESSIONS
 	        function listSessions() {
-	            Sessions.getList({page: ctrl.currentSessionsPage}).then(function (sessions) {
-	                ctrl.sessions = sessions;
-	            });
+	            Sessions.getList({page: ctrl.currentSessionsPage}).then(
+	                function (sessions) {
+	                    ctrl.sessions = sessions;
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                });
 	        }
 
 	        // CHECK PAGE MODE - EDIT || CREATE
@@ -75404,6 +75453,7 @@
 	                dialogs.notify("Error!", "Select member!", {size: "md"});
 	                return;
 	            }
+
 	            if (!ctrl.selectedSession) {
 	                dialogs.notify("Error!", "Select session!", {size: "md"});
 	                return;
@@ -75413,28 +75463,35 @@
 	                dialogs.notify("Error!", "Insert speech text!", {size: "md"});
 	                return;
 	            }
+
 	            ctrl.editedSpeech.member = {};
 	            ctrl.editedSpeech.member.id = ctrl.selectedMember.id;
 	            ctrl.editedSpeech.plenarySessionId = ctrl.selectedSession.id;
 	            ctrl.editedSpeech.sessionDate = parseStringSessionIntoDate(ctrl.selectedSession);
-	            Speeches.post(ctrl.editedSpeech).then(function (response) {
+
+	            Speeches.post(ctrl.editedSpeech).then(
+	                function (response) {
 	                    ctrl.editedSpeech = {};
 	                    ctrl.selectedMember = null;
 	                    ctrl.selectedSession = null;
 	                    dialogs.notify("Success!", "Speech successfully created!", {size: "md"});
 	                },
 	                function (response) {
-	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.error, {size: "md"});
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
 	                });
 	        }
 
 	        //UPDATE
 	        function update() {
 	            ctrl.putSpeech = Restangular.copy(ctrl.editedSpeech);
-	            ctrl.putSpeech.put().then(function (speech) {
-	                ctrl.editedSpeech = speech;
-	                dialogs.notify("Success!", "Speech successfully updated!", {size: "md"});
-	            })
+	            ctrl.putSpeech.put().then(
+	                function (speech) {
+	                    ctrl.editedSpeech = speech;
+	                    dialogs.notify("Success!", "Speech successfully updated!", {size: "md"});
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+	                })
 	        }
 
 	        function selectMember(member) {
@@ -75451,7 +75508,6 @@
 	                var month = session.date.substring(session.date.indexOf('.') + 1, session.date.lastIndexOf('.'));
 	                var year = session.date.substring(session.date.lastIndexOf('.') + 1, session.date.length);
 	                return new Date(year, month - 1, day);
-	                //year + '-' + month + '-' + day + '\'T\'01:00:00.000Z';
 	            }
 	        }
 
@@ -75471,6 +75527,7 @@
 	    function MembersCtrl(Members, localStorageService, dialogs) {
 
 	        var ctrl = this;
+
 	        ctrl.list = list;
 	        ctrl.remove = remove;
 	        ctrl.changePage = changePage;
@@ -75486,12 +75543,13 @@
 
 	        //GET ALL
 	        function list() {
-	            Members.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (members) {
-	                ctrl.members = members;
-	            },
-	            function (response) {
-	                dialogs.notify("Error!", response.data.error, null);
-	            });
+	            Members.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+	                function (members) {
+	                    ctrl.members = members;
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", response.data.error, null);
+	                });
 	        }
 
 	        //SEARCH
@@ -75504,11 +75562,12 @@
 	        function remove(memberId) {
 	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected member?", {size: "md"});
 	            dlg.result.then(function () {
-	                Members.one(memberId).remove().then(function () {
-	                    list();
-	                }, function (response) {
-	                    dialogs.notify("Error!", response.data.error, null);
-	                });
+	                Members.one(memberId).remove().then(
+	                    function () {
+	                        list();
+	                    }, function (response) {
+	                        dialogs.notify("Error!", response.data.error, {size: "md"});
+	                    });
 	            });
 	        }
 
@@ -75553,6 +75612,7 @@
 	    function SpeechesCtrl(Speeches, localStorageService, dialogs) {
 
 	        var ctrl = this;
+
 	        ctrl.list = list;
 	        ctrl.remove = remove;
 	        ctrl.changePage = changePage;
@@ -75587,10 +75647,11 @@
 	        function remove(speechId) {
 	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
 	            dlg.result.then(function () {
-	                Speeches.one(speechId).remove().then(function () {
+	                Speeches.one(speechId).remove().then(
+	                    function () {
 	                        list();
 	                    }, function (response) {
-	                        dialogs.notify("Error!", response.data.error, null);
+	                        dialogs.notify("Error!", response.data.error, {size: "md"});
 	                    }
 	                );
 	            });
@@ -75632,6 +75693,7 @@
 	    function SessionsCtrl(Sessions, localStorageService, dialogs) {
 
 	        var ctrl = this;
+
 	        ctrl.list = list;
 	        ctrl.remove = remove;
 	        ctrl.changePage = changePage;
@@ -75648,9 +75710,13 @@
 
 	        //GET ALL
 	        function list() {
-	            Sessions.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (sessions) {
-	                ctrl.sessions = sessions;
-	            });
+	            Sessions.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+	                function (sessions) {
+	                    ctrl.sessions = sessions;
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+	                });
 	        }
 
 	        //SEARCH
@@ -75663,11 +75729,12 @@
 	        function remove(sessionId) {
 	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected session?", {size: "md"});
 	            dlg.result.then(function () {
-	                Sessions.one(sessionId).remove().then(function () {
-	                    list();
-	                }, function (response) {
-	                    dialogs.notify("Error!", response.error, null);
-	                });
+	                Sessions.one(sessionId).remove().then(
+	                    function () {
+	                        list();
+	                    }, function (response) {
+	                        dialogs.notify("Error!", response.data.error, {size: "md"});
+	                    });
 	            });
 	        }
 
@@ -75717,6 +75784,7 @@
 	    function MemberSpeechesCtrl(Speeches, localStorageService, dialogs, MemberSpeeches) {
 
 	        var ctrl = this;
+
 	        ctrl.list = list;
 	        ctrl.remove = remove;
 	        ctrl.changePage = changePage;
@@ -75746,7 +75814,7 @@
 	                    ctrl.speeches = speeches;
 	                },
 	                function (response) {
-	                    dialogs.notify("Error!", response.data.error, null);
+	                    dialogs.notify("Error!", response.data.error, {size: "md"});
 	                });
 	        }
 
@@ -75760,11 +75828,12 @@
 	        function remove(speechId) {
 	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
 	            dlg.result.then(function () {
-	                Speeches.one(speechId).remove().then(function () {
-	                    list();
-	                }, function (response) {
-	                    dialogs.notify("Error!", response.data.error, null);
-	                });
+	                Speeches.one(speechId).remove().then(
+	                    function () {
+	                        list();
+	                    }, function (response) {
+	                        dialogs.notify("Error!", response.data.error, {size: "md"});
+	                    });
 	            });
 	        }
 
@@ -75804,6 +75873,7 @@
 	    function SessionSpeechesCtrl(Speeches, localStorageService, dialogs, SessionSpeeches) {
 
 	        var ctrl = this;
+
 	        ctrl.list = list;
 	        ctrl.remove = remove;
 	        ctrl.changePage = changePage;
@@ -75816,7 +75886,6 @@
 	        ctrl.currentPage = null;
 	        ctrl.searchTerm = null;
 	        ctrl.session = null;
-	        // CHECK PAGE MODE - EDIT || CREATE
 
 	        //GET ALL
 	        function list() {
@@ -75825,12 +75894,13 @@
 	                    ctrl.session = localStorageService.get("session");
 	                }
 	            }
-	            SessionSpeeches.forSession(ctrl.session.id).getList({
-	                page: ctrl.currentPage,
-	                query: ctrl.searchTerm
-	            }).then(function (speeches) {
-	                ctrl.speeches = speeches;
-	            });
+	            SessionSpeeches.forSession(ctrl.session.id).getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+	                function (speeches) {
+	                    ctrl.speeches = speeches;
+	                },
+	                function (response) {
+	                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+	                });
 	        }
 
 	        //SEARCH
@@ -75843,11 +75913,12 @@
 	        function remove(speechId) {
 	            var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
 	            dlg.result.then(function () {
-	                Speeches.one(speechId).remove().then(function () {
-	                    list();
-	                }, function (response) {
-	                    dialogs.notify("Error!", response.data.error, null);
-	                });
+	                Speeches.one(speechId).remove().then(
+	                    function () {
+	                        list();
+	                    }, function (response) {
+	                        dialogs.notify("Error!", response.data.error, {size: "md"});
+	                    });
 	            });
 	        }
 

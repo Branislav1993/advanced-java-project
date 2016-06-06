@@ -101,6 +101,7 @@ public class SpeechesRestService {
 	}
 
 	@PUT
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 	public Response updateSpeech(Speech s) {
 

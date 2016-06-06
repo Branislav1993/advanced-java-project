@@ -102,6 +102,7 @@ public class PartiesRestService {
 	}
 
 	@PUT
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 	public Response updateParty(Party p) {
 
@@ -156,8 +157,9 @@ public class PartiesRestService {
 	@GET
 	@Path("/{id}/members")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
-	public Response getPartyMembers(@PathParam("id") int id, @QueryParam("limit") int limit,
-			@QueryParam("page") int page) {
+	public Response getPartyMembers(@PathParam("id") int id, 
+									@QueryParam("limit") int limit,
+									@QueryParam("page") int page) {
 
 		// validation
 		int validLimit = ParameterChecker.check(limit, Settings.getInstance().config.query.limit);

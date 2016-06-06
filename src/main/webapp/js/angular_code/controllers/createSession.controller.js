@@ -6,6 +6,7 @@ module.exports = function (app) {
     function CreateSessionCtrl(Sessions, localStorageService, Restangular, dialogs) {
 
         var ctrl = this;
+
         ctrl.create = create;
         ctrl.update = update;
 
@@ -27,19 +28,27 @@ module.exports = function (app) {
         //CREATE
         function create() {
             console.log(JSON.stringify(ctrl.editedSession));
-            Sessions.post(ctrl.editedSession).then(function (response) {
-                ctrl.editedSession = {};
-                dialogs.notify("Success!", "Session successfully created!", {size: "md"});
-            });
+            Sessions.post(ctrl.editedSession).then(
+                function (response) {
+                    ctrl.editedSession = {};
+                    dialogs.notify("Success!", "Session successfully created!", {size: "md"});
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+                });
         }
 
         //UPDATE
         function update() {
             ctrl.putSession = Restangular.copy(ctrl.editedSession);
-            ctrl.putSession.put().then(function (session) {
-                ctrl.editedSession = session;
-                dialogs.notify("Success!", "Session successfully updated!", {size: "md"});
-            })
+            ctrl.putSession.put().then(
+                function (session) {
+                    ctrl.editedSession = session;
+                    dialogs.notify("Success!", "Session successfully updated!", {size: "md"});
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+                })
         }
 
         // DATE PICKER SETUP START

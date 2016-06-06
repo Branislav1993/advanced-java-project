@@ -102,6 +102,7 @@ public class PlenarySessionsRestService {
 	}
 
 	@PUT
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 	public Response updatePlenarySession(PlenarySession ps) {
 
@@ -155,12 +156,15 @@ public class PlenarySessionsRestService {
 	@Path("/{id}/speeches")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 	public Response getPlenarySessionSpeeches(	@PathParam("id") int id,
-												@PathParam("limit") int limit,
-												@PathParam("page") int page) {
+												@QueryParam("limit") int limit,
+												@QueryParam("page") int page) {
 		
 		// validation
 		int validLimit = ParameterChecker.check(limit, Settings.getInstance().config.query.limit);
 		int validPage = ParameterChecker.check(page, 1);
+		
+		System.out.println(limit + " " + page);
+		System.out.println(validLimit + " " + validPage);
 				
 		// retrieving the data
 		ServiceResponse<Speech> response = plenarySessionService.getPlenarySessionSpeeches(id, validLimit, validPage);

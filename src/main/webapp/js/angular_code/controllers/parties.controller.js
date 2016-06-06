@@ -6,6 +6,7 @@ module.exports = function (app) {
     function PartiesCtrl(Parties, localStorageService, dialogs) {
 
         var ctrl = this;
+
         ctrl.list = list;
         ctrl.remove = remove;
         ctrl.changePage = changePage;
@@ -19,9 +20,13 @@ module.exports = function (app) {
 
         //GET ALL
         function list() {
-            Parties.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (parties) {
-                ctrl.parties = parties;
-            });
+            Parties.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+                function (parties) {
+                    ctrl.parties = parties;
+                },
+                function (response) {
+                    dialogs.notify("Error!", response.data.error, null);
+                });
         }
 
         //SEARCH
@@ -34,9 +39,13 @@ module.exports = function (app) {
         function remove(partyId) {
             var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected party?", {size: "md"});
             dlg.result.then(function () {
-                Parties.one(partyId).remove().then(function () {
-                    list();
-                });
+                Parties.one(partyId).remove().then(
+                    function () {
+                        list();
+                    },
+                    function (response) {
+                        dialogs.notify("Error!", response.data.error, {size: "md"});
+                    });
             });
         }
 

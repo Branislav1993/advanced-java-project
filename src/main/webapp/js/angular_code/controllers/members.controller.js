@@ -6,6 +6,7 @@ module.exports = function (app) {
     function MembersCtrl(Members, localStorageService, dialogs) {
 
         var ctrl = this;
+
         ctrl.list = list;
         ctrl.remove = remove;
         ctrl.changePage = changePage;
@@ -21,12 +22,13 @@ module.exports = function (app) {
 
         //GET ALL
         function list() {
-            Members.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (members) {
-                ctrl.members = members;
-            },
-            function (response) {
-                dialogs.notify("Error!", response.data.error, null);
-            });
+            Members.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+                function (members) {
+                    ctrl.members = members;
+                },
+                function (response) {
+                    dialogs.notify("Error!", response.data.error, null);
+                });
         }
 
         //SEARCH
@@ -39,11 +41,12 @@ module.exports = function (app) {
         function remove(memberId) {
             var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected member?", {size: "md"});
             dlg.result.then(function () {
-                Members.one(memberId).remove().then(function () {
-                    list();
-                }, function (response) {
-                    dialogs.notify("Error!", response.data.error, null);
-                });
+                Members.one(memberId).remove().then(
+                    function () {
+                        list();
+                    }, function (response) {
+                        dialogs.notify("Error!", response.data.error, {size: "md"});
+                    });
             });
         }
 

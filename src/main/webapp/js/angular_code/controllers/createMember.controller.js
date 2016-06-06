@@ -6,6 +6,7 @@ module.exports = function (app) {
     function CreateMemberCtrl(Members, localStorageService, Towns, Restangular, dialogs) {
 
         var ctrl = this;
+
         ctrl.create = create;
         ctrl.update = update;
 
@@ -17,9 +18,13 @@ module.exports = function (app) {
 
         //GET ALL TOWNS
         function listTowns() {
-            Towns.getList().then(function (towns) {
-                ctrl.towns = towns.plain();
-            });
+            Towns.getList().then(
+                function (towns) {
+                    ctrl.towns = towns.plain();
+                },
+                function (response) {
+                    dialogs.notify("Error!", response.data.error, null);
+                });
         }
 
         // CHECK PAGE MODE - EDIT || CREATE
@@ -36,19 +41,27 @@ module.exports = function (app) {
 
         //CREATE
         function create() {
-            Members.post(ctrl.editedMember).then(function (response) {
-                ctrl.editedMember = {};
-                dialogs.notify("Success!", "Member successfully created!", {size: "md"});
-            });
+            Members.post(ctrl.editedMember).then(
+                function (response) {
+                    ctrl.editedMember = {};
+                    dialogs.notify("Success!", "Member successfully created!", {size: "md"});
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+                });
         }
 
         //UPDATE
         function update() {
             ctrl.putMember = Restangular.copy(ctrl.editedMember);
-            ctrl.putMember.put().then(function (member) {
-                ctrl.editedMember = member;
-                dialogs.notify("Success!", "Member successfully updated!", {size: "md"});
-            })
+            ctrl.putMember.put().then(
+                function (member) {
+                    ctrl.editedMember = member;
+                    dialogs.notify("Success!", "Member successfully updated!", {size: "md"});
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+                })
         }
 
         // DATE PICKER SETUP START

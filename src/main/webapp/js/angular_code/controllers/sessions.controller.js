@@ -6,6 +6,7 @@ module.exports = function (app) {
     function SessionsCtrl(Sessions, localStorageService, dialogs) {
 
         var ctrl = this;
+
         ctrl.list = list;
         ctrl.remove = remove;
         ctrl.changePage = changePage;
@@ -22,9 +23,13 @@ module.exports = function (app) {
 
         //GET ALL
         function list() {
-            Sessions.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(function (sessions) {
-                ctrl.sessions = sessions;
-            });
+            Sessions.getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+                function (sessions) {
+                    ctrl.sessions = sessions;
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+                });
         }
 
         //SEARCH
@@ -37,11 +42,12 @@ module.exports = function (app) {
         function remove(sessionId) {
             var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected session?", {size: "md"});
             dlg.result.then(function () {
-                Sessions.one(sessionId).remove().then(function () {
-                    list();
-                }, function (response) {
-                    dialogs.notify("Error!", response.error, null);
-                });
+                Sessions.one(sessionId).remove().then(
+                    function () {
+                        list();
+                    }, function (response) {
+                        dialogs.notify("Error!", response.data.error, {size: "md"});
+                    });
             });
         }
 

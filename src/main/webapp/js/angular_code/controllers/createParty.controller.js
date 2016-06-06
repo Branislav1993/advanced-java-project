@@ -6,6 +6,7 @@ module.exports = function (app) {
     function CreatePartyCtrl(Parties, localStorageService, Restangular, dialogs) {
 
         var ctrl = this;
+
         ctrl.create = create;
         ctrl.update = update;
 
@@ -20,19 +21,27 @@ module.exports = function (app) {
 
         //CREATE
         function create() {
-            Parties.post(ctrl.editedParty).then(function (response) {
-                ctrl.editedParty = {};
-                dialogs.notify("Success!", "Party successfully created!", {size: "md"});
-            });
+            Parties.post(ctrl.editedParty).then(
+                function (response) {
+                    ctrl.editedParty = {};
+                    dialogs.notify("Success!", "Party successfully created!", {size: "md"});
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+                });
         }
 
         //UPDATE
         function update() {
             ctrl.putParty = Restangular.copy(ctrl.editedParty);
-            ctrl.putParty.put().then(function (party) {
-                ctrl.editedParty = party;
-                dialogs.notify("Success!", "Party successfully updated!", {size: "md"});
-            })
+            ctrl.putParty.put().then(
+                function (party) {
+                    ctrl.editedParty = party;
+                    dialogs.notify("Success!", "Party successfully updated!", {size: "md"});
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+                })
         }
 
     }

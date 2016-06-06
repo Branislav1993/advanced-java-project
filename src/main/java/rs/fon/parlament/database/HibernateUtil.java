@@ -56,6 +56,7 @@ public class HibernateUtil {
 		prop.put("hibernate.connection.pool_size", Settings.getInstance().config.getDbConfig().poolSize);
 		prop.put("hibernate.dialect", "org.hibernate.dialect.MySQLInnoDBDialect");
 		prop.put("hibernate.show_sql", true);
+		prop.put("hibernate.connection.isolation", 1);
 
 		return prop;
 	}

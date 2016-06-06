@@ -31,19 +31,21 @@ public class SpeechDao {
 	public Speech insertSpeech(Speech s) {
 		Session session = HibernateUtil.getInstance().getSessionFactory().openSession();
 		session.beginTransaction();
+		Speech newSpeech;
 
 		try {
 			session.save(s);
+			newSpeech = (Speech) session.get(Speech.class, s.getId());
 			session.getTransaction().commit();
+			session.flush();
+			session.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
+			session.flush();
 			session.close();
 			return null;
 		}
-
-		Speech newSpeech = (Speech) session.get(Speech.class, s.getId());
-		session.close();
 
 		return newSpeech;
 

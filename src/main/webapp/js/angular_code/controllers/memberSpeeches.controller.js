@@ -6,6 +6,7 @@ module.exports = function (app) {
     function MemberSpeechesCtrl(Speeches, localStorageService, dialogs, MemberSpeeches) {
 
         var ctrl = this;
+
         ctrl.list = list;
         ctrl.remove = remove;
         ctrl.changePage = changePage;
@@ -35,7 +36,7 @@ module.exports = function (app) {
                     ctrl.speeches = speeches;
                 },
                 function (response) {
-                    dialogs.notify("Error!", response.data.error, null);
+                    dialogs.notify("Error!", response.data.error, {size: "md"});
                 });
         }
 
@@ -49,11 +50,12 @@ module.exports = function (app) {
         function remove(speechId) {
             var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
             dlg.result.then(function () {
-                Speeches.one(speechId).remove().then(function () {
-                    list();
-                }, function (response) {
-                    dialogs.notify("Error!", response.data.error, null);
-                });
+                Speeches.one(speechId).remove().then(
+                    function () {
+                        list();
+                    }, function (response) {
+                        dialogs.notify("Error!", response.data.error, {size: "md"});
+                    });
             });
         }
 

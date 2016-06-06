@@ -6,6 +6,7 @@ module.exports = function (app) {
     function SessionSpeechesCtrl(Speeches, localStorageService, dialogs, SessionSpeeches) {
 
         var ctrl = this;
+
         ctrl.list = list;
         ctrl.remove = remove;
         ctrl.changePage = changePage;
@@ -18,7 +19,6 @@ module.exports = function (app) {
         ctrl.currentPage = null;
         ctrl.searchTerm = null;
         ctrl.session = null;
-        // CHECK PAGE MODE - EDIT || CREATE
 
         //GET ALL
         function list() {
@@ -27,12 +27,13 @@ module.exports = function (app) {
                     ctrl.session = localStorageService.get("session");
                 }
             }
-            SessionSpeeches.forSession(ctrl.session.id).getList({
-                page: ctrl.currentPage,
-                query: ctrl.searchTerm
-            }).then(function (speeches) {
-                ctrl.speeches = speeches;
-            });
+            SessionSpeeches.forSession(ctrl.session.id).getList({page: ctrl.currentPage, query: ctrl.searchTerm}).then(
+                function (speeches) {
+                    ctrl.speeches = speeches;
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+                });
         }
 
         //SEARCH
@@ -45,11 +46,12 @@ module.exports = function (app) {
         function remove(speechId) {
             var dlg = dialogs.confirm("Are you sure?", "Do you want to delete selected speech?", {size: "md"});
             dlg.result.then(function () {
-                Speeches.one(speechId).remove().then(function () {
-                    list();
-                }, function (response) {
-                    dialogs.notify("Error!", response.data.error, null);
-                });
+                Speeches.one(speechId).remove().then(
+                    function () {
+                        list();
+                    }, function (response) {
+                        dialogs.notify("Error!", response.data.error, {size: "md"});
+                    });
             });
         }
 

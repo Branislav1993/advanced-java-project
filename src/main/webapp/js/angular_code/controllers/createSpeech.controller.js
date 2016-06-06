@@ -6,6 +6,7 @@ module.exports = function (app) {
     function CreateSpeechCtrl(Members, Speeches, Sessions, localStorageService, Restangular, dialogs) {
 
         var ctrl = this;
+
         ctrl.create = create;
         ctrl.update = update;
         ctrl.searchMembers = searchMembers;
@@ -49,9 +50,13 @@ module.exports = function (app) {
 
         //GET ALL MEMBERS
         function listMembers() {
-            Members.getList({page: ctrl.currentMembersPage, query: ctrl.searchMemberTerm}).then(function (members) {
-                ctrl.members = members;
-            });
+            Members.getList({page: ctrl.currentMembersPage, query: ctrl.searchMemberTerm}).then(
+                function (members) {
+                    ctrl.members = members;
+                },
+                function (response) {
+                    dialogs.notify("Error!", response.data.error, null);
+                });
         }
 
         //CHANGE MEMBERS PAGE
@@ -68,9 +73,13 @@ module.exports = function (app) {
 
         //GET ALL SESSIONS
         function listSessions() {
-            Sessions.getList({page: ctrl.currentSessionsPage}).then(function (sessions) {
-                ctrl.sessions = sessions;
-            });
+            Sessions.getList({page: ctrl.currentSessionsPage}).then(
+                function (sessions) {
+                    ctrl.sessions = sessions;
+                },
+                function (response) {
+                    dialogs.notify("Error!", response.data.error, null);
+                });
         }
 
         // CHECK PAGE MODE - EDIT || CREATE
@@ -85,6 +94,7 @@ module.exports = function (app) {
                 dialogs.notify("Error!", "Select member!", {size: "md"});
                 return;
             }
+
             if (!ctrl.selectedSession) {
                 dialogs.notify("Error!", "Select session!", {size: "md"});
                 return;
@@ -94,28 +104,35 @@ module.exports = function (app) {
                 dialogs.notify("Error!", "Insert speech text!", {size: "md"});
                 return;
             }
+
             ctrl.editedSpeech.member = {};
             ctrl.editedSpeech.member.id = ctrl.selectedMember.id;
             ctrl.editedSpeech.plenarySessionId = ctrl.selectedSession.id;
             ctrl.editedSpeech.sessionDate = parseStringSessionIntoDate(ctrl.selectedSession);
-            Speeches.post(ctrl.editedSpeech).then(function (response) {
+
+            Speeches.post(ctrl.editedSpeech).then(
+                function (response) {
                     ctrl.editedSpeech = {};
                     ctrl.selectedMember = null;
                     ctrl.selectedSession = null;
                     dialogs.notify("Success!", "Speech successfully created!", {size: "md"});
                 },
                 function (response) {
-                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.error, {size: "md"});
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
                 });
         }
 
         //UPDATE
         function update() {
             ctrl.putSpeech = Restangular.copy(ctrl.editedSpeech);
-            ctrl.putSpeech.put().then(function (speech) {
-                ctrl.editedSpeech = speech;
-                dialogs.notify("Success!", "Speech successfully updated!", {size: "md"});
-            })
+            ctrl.putSpeech.put().then(
+                function (speech) {
+                    ctrl.editedSpeech = speech;
+                    dialogs.notify("Success!", "Speech successfully updated!", {size: "md"});
+                },
+                function (response) {
+                    dialogs.notify("Error!", 'Status: ' + response.status + ' Message: ' + response.data.error, {size: "md"});
+                })
         }
 
         function selectMember(member) {
@@ -132,7 +149,6 @@ module.exports = function (app) {
                 var month = session.date.substring(session.date.indexOf('.') + 1, session.date.lastIndexOf('.'));
                 var year = session.date.substring(session.date.lastIndexOf('.') + 1, session.date.length);
                 return new Date(year, month - 1, day);
-                //year + '-' + month + '-' + day + '\'T\'01:00:00.000Z';
             }
         }
 

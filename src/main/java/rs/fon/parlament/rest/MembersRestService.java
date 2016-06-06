@@ -103,6 +103,7 @@ public class MembersRestService {
 	
 
 	@PUT
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON + ";charset=UTF-8")
 	public Response updateMember(Member m) {
 
